@@ -1,5 +1,12 @@
 [
   {
+    "objectID": "index.html#generating-ising-configurations",
+    "href": "index.html#generating-ising-configurations",
+    "title": "Probing the Ising Model’s Thermodynamics through Restricted Boltzmann Machines",
+    "section": "Generating Ising Configurations",
+    "text": "Generating Ising Configurations\n\n\n\n\n\nAlgorithm\n\n\n\ninput: Initial configuration \\{s_i\\}\nspin/cluster selection:\n\nMetropolis: Randomly select a single spin\nWolff: Randomly select a seed spin and form a cluster\n\nflip:\n\nMetropolis: Calculate the energy difference \\textcolor{#07B875}{\\Delta E}.\n\nIf \\textcolor{#07B875}{\\Delta E} \\leq 0, flip\nIf \\textcolor{#07B875}{\\Delta E} &gt;0, flip with probability e^{-\\Delta E/kT}\n\nWolff: Add aligned neighboring spins to the cluster with probability P=e^{-2J/kT}. Flip the cluster.\n\niterate: Repeat spin/cluster selection and flip\nequilibrate: Allow the system to equilibrate and start sampling\nreturn: return sampled equilibrated configurations \\{s_i\\}\n\n\n\n\n\n\n\n\n\n\n\nSimulation technique\n\n\nMonte Carlo algorithms under periodic boundary conditions\n\n\n\n\nMetropolis algorithm: Randomly flip a spin\nCritical slow down: hard to flip spins near critical temperature!\n\nWolff Algorithm - flip spin clusters"
+  },
+  {
     "objectID": "index.html#references",
     "href": "index.html#references",
     "title": "Probing the Ising Model’s Thermodynamics through Restricted Boltzmann Machines",

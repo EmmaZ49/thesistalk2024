@@ -52,15 +52,16 @@ format:
 
 # Overview
 
-1. [Background: `{MCMC,HMC}`](#markov-chain-monte-carlo-mcmc-centeredslide)
-    - [Leapfrog Integrator](#leapfrog-integrator-hmc-centeredslide)
-    - [Issues with HMC](#sec-issues-with-hmc)
-    - [Can we do better?](#sec-can-we-do-better)
-2. [L2HMC: Generalizing MD](#sec-l2hmc)
-    - [4D $SU(3)$ Model](#sec-su3)
-    - [Results](#sec-results)
-3. [References](#sec-references)
-4. [Extras](#sec-extras)
+1. [Background](#physics-and-machine-learning-a-thought-experiment)
+    - [Physics and Machine Learning](#physics-and-machine-learning-a-thought-experiment)
+    - [The Ising Model](#the-ising-model)
+    - [Restricted Boltzmann Machine](#restricted-boltzmann-machines)
+2. [Methods](#method-outline-2)
+    - [Generating Ising Configurations](#generating-ising-configurations)
+    - [Training RBMs](#training-rbms)
+    - [RBM-Generated New Configurations](#rbm-generated-ising-configurations-1)
+    - [Generated vs. Original](#generated-vs.-original)
+3. [References](#references)
 
 
 # Physics and Machine Learning: A Thought Experiment
@@ -237,11 +238,11 @@ Train RBMs on Ising model data and study the [learned patterns]{.green-text}
 Generate _new_ Ising configurations using RBM. How [good]{.red-text} are these new configurations?
 :::
 
-# Generating Ising Configurations {.centeredslide auto-animate="true"}
+## Generating Ising Configurations {.centeredslide auto-animate="true"}
 
 :::: {.columns}
 
-::: {.column width="50%" style="font-size:0.99em;"}
+::: {.column width="50%" style="font-size:0.85em;"}
 
 ::: {.callout title="Algorithm"}
 

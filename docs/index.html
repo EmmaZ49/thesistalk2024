@@ -381,19 +381,20 @@ Emma Zhang<br>
 <section id="overview" class="title-slide slide level1 center">
 <h1>Overview</h1>
 <ol type="1">
-<li><a href="#/markov-chain-monte-carlo-mcmc-centeredslide">Background: <code>{MCMC,HMC}</code></a>
+<li><a href="#/physics-and-machine-learning-a-thought-experiment">Background</a>
 <ul>
-<li><a href="#/leapfrog-integrator-hmc-centeredslide">Leapfrog Integrator</a></li>
-<li><a href="#/sec-issues-with-hmc">Issues with HMC</a></li>
-<li><a href="#/sec-can-we-do-better">Can we do better?</a></li>
+<li><a href="#/physics-and-machine-learning-a-thought-experiment">Physics and Machine Learning</a></li>
+<li><a href="#/the-ising-model">The Ising Model</a></li>
+<li><a href="#/restricted-boltzmann-machines">Restricted Boltzmann Machine</a></li>
 </ul></li>
-<li><a href="#/sec-l2hmc">L2HMC: Generalizing MD</a>
+<li><a href="#/method-outline-2">Methods</a>
 <ul>
-<li><a href="#/sec-su3">4D <span class="math inline">SU(3)</span> Model</a></li>
-<li><a href="#/sec-results">Results</a></li>
+<li><a href="#/generating-ising-configurations">Generating Ising Configurations</a></li>
+<li><a href="#/training-rbms">Training RBMs</a></li>
+<li><a href="#/rbm-generated-ising-configurations-1">RBM-Generated New Configurations</a></li>
+<li><a href="#/generated-vs.-original">Generated vs.&nbsp;Original</a></li>
 </ul></li>
-<li><a href="#/sec-references">References</a></li>
-<li><a href="#/sec-extras">Extras</a></li>
+<li><a href="#/references">References</a></li>
 </ol>
 </section>
 
@@ -624,6 +625,7 @@ Emma Zhang<br>
 </div>
 </section>
 
+<section>
 <section id="method-outline-2" class="title-slide slide level1 centeredslide center" data-auto-animate="true">
 <h1 data-id="quarto-animate-title">Method Outline</h1>
 <div class="callout callout-note callout-titled callout-style-default">
@@ -666,11 +668,10 @@ Emma Zhang<br>
 </div>
 </div>
 </section>
-
-<section id="generating-ising-configurations" class="title-slide slide level1 centeredslide center" data-auto-animate="true">
-<h1 data-id="quarto-animate-title">Generating Ising Configurations</h1>
+<section id="generating-ising-configurations" class="slide level2 centeredslide center" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Generating Ising Configurations</h2>
 <div class="columns">
-<div class="column" style="font-size:0.99em;">
+<div class="column" style="font-size:0.85em;">
 <div class="callout callout-none no-icon callout-titled callout-style-simple">
 <div class="callout-body">
 <div class="callout-title">
@@ -723,8 +724,7 @@ Emma Zhang<br>
 </ul>
 </div>
 </div>
-</section>
-
+</section></section>
 <section id="generating-ising-configurations-1" class="title-slide slide level1 centeredslide center" data-auto-animate="true">
 <h1 data-id="quarto-animate-title">Generating Ising Configurations</h1>
 <div class="callout callout-tip callout-titled callout-style-default">
