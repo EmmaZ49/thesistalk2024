@@ -30,26 +30,7 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-    /* CSS for citations */
-    div.csl-bib-body { }
-    div.csl-entry {
-      clear: both;
-    }
-    .hanging-indent div.csl-entry {
-      margin-left:2em;
-      text-indent:-2em;
-    }
-    div.csl-left-margin {
-      min-width:2em;
-      float:left;
-    }
-    div.csl-right-inline {
-      margin-left:2em;
-      padding-left:1em;
-    }
-    div.csl-indent {
-      margin-left: 2em;
-    }  </style>
+  </style>
   <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto.css">
   <link rel="stylesheet" href="css/default.css">
   <link rel="stylesheet" href="css/callouts.css">
@@ -954,226 +935,20 @@ Emma Zhang<br>
 </ul></li>
 </ul>
 </section>
-<section id="references" class="slide level2 smaller scrollable" style="line-height:1.2em;">
+<section id="references" class="slide level2 center" style="line-height:1.2em;">
 <h2>References</h2>
-<div id="refs" role="list">
-
-</div>
+<p>[1]J. Gu and K. Zhang, “Thermodynamics of the Ising Model Encoded in Restricted Boltzmann Machines,” Entropy, vol.&nbsp;24, no. 12, p.&nbsp;1701, Nov.&nbsp;2022, doi: 10.3390/e24121701.</p>
+<p>[2]H. A. Kramers and G. H. Wannier, “Statistics of the Two-Dimensional Ferromagnet. Part I,” Phys. Rev., vol.&nbsp;60, no. 3, pp.&nbsp;252–262, Aug.&nbsp;1941, doi: 10.1103/PhysRev.60.252.</p>
+<p>[3]J. Cardy, “Phase transitions in simple Systems,” in Scaling and Renormalization in Statistical Physics, Cambridge University Press, 1996, pp.&nbsp;1–15.</p>
+<p>[4]G. E. Hinton, “A Practical Guide to Training Restricted Boltzmann Machines,” 2012. [Online]. Available: https://api.semanticscholar.org/CorpusID:21145246</p>
+<p>[5]G. Peyré and M. Cuturi, Computational Optimal Transport. 2020.</p>
+<p>[6]M. E. J. Newman and G. T. Barkema, “The Ising model and the Metropolis algorithm,” in Monte Carlo Methods in Statistical Physics, Oxford University Press, 1999. doi: 10.1093/oso/9780198517962.003.0003.</p>
+<p>[7]W. Krauth, Statistical Mechanics Algorithms and Computations. Oxford: Oxford University Press, 2006.</p>
 </section></section>
-<section>
 <section id="sec-extras" class="title-slide slide level1 center">
 <h1>Extras</h1>
 
-</section>
-<section id="integrated-autocorrelation-time" class="slide level2 centeredslide center">
-<h2>Integrated Autocorrelation Time</h2>
-
-<img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/tint1.svg" style="width:100.0%" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;10: Plot of the integrated autocorrelation time for both the trained model (colored) and HMC (greyscale).</p></section>
-<section id="comparison" class="slide level2 center">
-<h2>Comparison</h2>
-<div id="fig-comparison" class="quarto-layout-panel">
-<figure>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
-<div id="fig-eval" class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="https://saforem2.github.io/anl-job-talk/assets/dQint_eval.svg" data-ref-parent="fig-comparison"></p>
-<figcaption>(a) Trained model</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
-<div id="fig-hmc" class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="https://saforem2.github.io/anl-job-talk/assets/dQint_hmc.svg" data-ref-parent="fig-comparison"></p>
-<figcaption>(b) Generic HMC</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p></p><figcaption>Figure&nbsp;11: Comparison of <span class="math inline">\langle \delta Q\rangle = \frac{1}{N}\sum_{i=k}^{N} \delta Q_{i}</span> for the trained model <a href="#/comparison">Figure&nbsp;11 (a)</a> vs.&nbsp;HMC <a href="#/comparison">Figure&nbsp;11 (b)</a></figcaption><p></p>
-</figure>
-</div>
-</section>
-<section id="plaquette-analysis-x_p" class="slide level2 centeredslide center">
-<h2>Plaquette analysis: <span class="math inline">x_{P}</span></h2>
-<div class="columns">
-<div class="column" style="width:55%;">
-<p><span class="dim-text" style="text-align:center; font-size:0.9em;">Deviation from <span class="math inline">V\rightarrow\infty</span> limit, <span class="math inline">x_{P}^{\ast}</span></span></p>
-</div><div class="column" style="width:45%;">
-<p><span class="dim-text" style="text-align:right!important; font-size:0.9em;">Average <span class="math inline">\langle x_{P}\rangle</span>, with <span class="math inline">x_{P}^{\ast}</span> (dotted-lines)</span></p>
-</div>
-</div>
-
-<img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/plaqsf_vs_lf_step1.svg" style="width:100.0%" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;12: Plot showing how <strong>average plaquette</strong>, <span class="math inline">\left\langle x_{P}\right\rangle</span> varies over a single trajectory for models trained at different <span class="math inline">\beta</span>, with varying trajectory lengths <span class="math inline">N_{\mathrm{LF}}</span></p></section>
-<section id="loss-function" class="slide level2 center">
-<h2>Loss Function</h2>
-<ul>
-<li><p>Want to maximize the <em>expected</em> squared charge difference<sup>1</sup>: <span class="math display">\begin{equation*}
-\mathcal{L}_{\theta}\left(\xi^{\ast}, \xi\right) =
-{\mathbb{E}_{p(\xi)}}\big[-\textcolor{#FA5252}{{\delta Q}}^{2}
-\left(\xi^{\ast}, \xi \right)\cdot A(\xi^{\ast}|\xi)\big]
-\end{equation*}</span></p></li>
-<li><p>Where:</p>
-<ul>
-<li><p><span class="math inline">\delta Q</span> is the <em>tunneling rate</em>: <span class="math display">\begin{equation*}
-\textcolor{#FA5252}{\delta Q}(\xi^{\ast},\xi)=\left|Q^{\ast} - Q\right|
-\end{equation*}</span></p></li>
-<li><p><span class="math inline">A(\xi^{\ast}|\xi)</span> is the probability<sup>2</sup> of accepting the proposal <span class="math inline">\xi^{\ast}</span>: <span class="math display">\begin{equation*}
-A(\xi^{\ast}|\xi) = \mathrm{min}\left( 1,
-\frac{p(\xi^{\ast})}{p(\xi)}\left|\frac{\partial \xi^{\ast}}{\partial
-\xi^{T}}\right|\right)
-\end{equation*}</span></p></li>
-</ul></li>
-</ul>
-<aside><ol class="aside-footnotes"><li id="fn2"><p>Where <span class="math inline">\xi^{\ast}</span> is the <em>proposed</em> configuration (prior to Accept / Reject)</p></li><li id="fn3"><p>And <span class="math inline">\left|\frac{\partial \xi^{\ast}}{\partial \xi^{T}}\right|</span> is the Jacobian of the transformation from <span class="math inline">\xi \rightarrow \xi^{\ast}</span></p></li></ol></aside></section>
-
-<section id="networks-2d-u1" class="slide level2 center" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">Networks 2D <span class="math inline">U(1)</span></h2>
-<ul>
-<li><p>Stack gauge links as <code>shape</code><span class="math inline">\left(U_{\mu}\right)</span><code>=[Nb, 2, Nt, Nx]</code> <span class="math inline">\in \mathbb{C}</span></p>
-<p><span class="math display"> x_{\mu}(n) ≔ \left[\cos(x), \sin(x)\right]</span></p>
-<p>with <code>shape</code><span class="math inline">\left(x_{\mu}\right)</span><code>= [Nb, 2, Nt, Nx, 2]</code> <span class="math inline">\in \mathbb{R}</span></p></li>
-<li><p><span class="math inline">x</span>-Network:</p>
-<ul>
-<li><span class="purple-text"><span class="math inline">\psi_{\theta}: (x, v) \longrightarrow \left(s_{x},\, t_{x},\, q_{x}\right)</span></span></li>
-</ul></li>
-<li><p><span class="math inline">v</span>-Network:</p>
-<ul>
-<li><span class="green-text"><span class="math inline">\varphi_{\theta}: (x, v) \longrightarrow \left(s_{v},\, t_{v},\, q_{v}\right)</span></span> <span class="dim-text"><span class="math inline">\hspace{2pt}\longleftarrow</span> lets look at this</span></li>
-</ul></li>
-</ul>
-</section>
-<section id="v-updatereverse" class="slide level2 center">
-<h2><span class="math inline">v</span>-Update<sup>1</sup></h2>
-<ul>
-<li><span style="color:#FF5252">forward</span> <span class="math inline">(d = \textcolor{#FF5252}{+})</span>:</li>
-</ul>
-<p><span class="math display">\Gamma^{\textcolor{#FF5252}{+}}: (x, v) \rightarrow v' := v \cdot e^{\frac{\varepsilon}{2} s_{v}} - \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{v}} + t_{v} \right]</span></p>
-<ul>
-<li><span style="color:#1A8FFF;">backward</span> <span class="math inline">(d = \textcolor{#1A8FFF}{-})</span>:</li>
-</ul>
-<p><span class="math display">\Gamma^{\textcolor{#1A8FFF}{-}}: (x, v) \rightarrow v' := e^{-\frac{\varepsilon}{2} s_{v}} \left\{v + \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{v}} + t_{v} \right]\right\}</span></p>
-<aside><ol class="aside-footnotes"><li id="fn4"><p><span style="font-size:0.8em;">Note that <span class="math inline">\left(\Gamma^{+}\right)^{-1} = \Gamma^{-}</span>, i.e.&nbsp;<span class="math inline">\Gamma^{+}\left[\Gamma^{-}(x, v)\right] = \Gamma^{-}\left[\Gamma^{+}(x, v)\right] = (x, v)</span></span></p></li></ol></aside></section>
-
-<section id="x-update" class="slide level2 center">
-<h2><span class="math inline">x</span>-Update</h2>
-<ul>
-<li><span style="color:#FF5252">forward</span> <span class="math inline">(d = \textcolor{#FF5252}{+})</span>:</li>
-</ul>
-<p><span class="math display">\Lambda^{\textcolor{#FF5252}{+}}(x, v) = x \cdot e^{\frac{\varepsilon}{2} s_{x}} - \frac{\varepsilon}{2}\left[ v \cdot e^{\varepsilon q_{x}} + t_{x} \right]</span></p>
-<ul>
-<li><span style="color:#1A8FFF;">backward</span> <span class="math inline">(d = \textcolor{#1A8FFF}{-})</span>:</li>
-</ul>
-<p><span class="math display">\Lambda^{\textcolor{#1A8FFF}{-}}(x, v) = e^{-\frac{\varepsilon}{2} s_{x}} \left\{x + \frac{\varepsilon}{2}\left[ v \cdot e^{\varepsilon q_{x}} + t_{x} \right]\right\}</span></p>
-</section>
-<section id="lattice-gauge-theory-2d-u1" class="slide level2 centeredslide center">
-<h2>Lattice Gauge Theory (2D <span class="math inline">U(1)</span>)</h2>
-<div class="columns" data-layout-valign="top">
-<div class="column" style="width:50%;">
-<div style="text-align:center;">
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Link Variables</strong></p>
-</div>
-<div class="callout-content">
-<p><span class="math display">U_{\mu}(n) = e^{i x_{\mu}(n)}\in \mathbb{C},\quad \text{where}\quad</span> <span class="math display">x_{\mu}(n) \in [-\pi,\pi)</span></p>
-</div>
-</div>
-</div>
-<div>
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Wilson Action</strong></p>
-</div>
-<div class="callout-content">
-<p><span class="math display">S_{\beta}(x) = \beta\sum_{P} \cos \textcolor{#00CCFF}{x_{P}},</span></p>
-<p><span class="math display">\textcolor{#00CCFF}{x_{P}} = \left[x_{\mu}(n) + x_{\nu}(n+\hat{\mu})
-- x_{\mu}(n+\hat{\nu})-x_{\nu}(n)\right]</span></p>
-</div>
-</div>
-</div>
-<p><span class="dim-text" style="font-size:0.8em;"><strong>Note</strong>: <span class="math inline">\textcolor{#00CCFF}{x_{P}}</span> is the product of links around <span class="math inline">1\times 1</span> square, called a <span class="blue-text">“plaquette”</span></span></p>
-</div>
-</div>
-</div><div class="column" style="width:50%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="https://raw.githubusercontent.com/saforem2/deep-fridays/main/assets/u1lattice.dark.svg" style="width:80.0%"></p>
-<figcaption>2D Lattice</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="section-1" class="slide level2 center" data-background-color="white">
-<h2></h2>
-<div id="fig-notebook" class="quarto-figure quarto-figure-center">
-<figure>
-<iframe data-src="https://nbviewer.org/github/saforem2/l2hmc-qcd/blob/SU3/src/l2hmc/notebooks/l2hmc-2dU1.ipynb" width="100%" height="650" title="l2hmc-qcd">
-</iframe>
-<figcaption>Figure&nbsp;13: Jupyter Notebook</figcaption>
-</figure>
-</div>
-</section>
-<section id="annealing-schedule" class="slide level2 center">
-<h2>Annealing Schedule</h2>
-<ul>
-<li><p>Introduce an <em>annealing schedule</em> during the training phase:</p>
-<p><span class="math display">\left\{ \gamma_{t}  \right\}_{t=0}^{N} = \left\{\gamma_{0}, \gamma_{1},
-\ldots, \gamma_{N-1}, \gamma_{N} \right\}</span></p>
-<p>where <span class="math inline">\gamma_{0} &lt; \gamma_{1} &lt; \cdots &lt; \gamma_{N} \equiv 1</span>, and <span class="math inline">\left|\gamma_{t+1} - \gamma_{t}\right| \ll 1</span></p></li>
-<li><p><span class="green-text"><strong>Note</strong></span>:</p>
-<ul>
-<li>for <span class="math inline">\left|\gamma_{t}\right| &lt; 1</span>, this rescaling helps to reduce the height of the energy barriers <span class="math inline">\Longrightarrow</span></li>
-<li>easier for our sampler to explore previously inaccessible regions of the phase space</li>
-</ul></li>
-</ul>
-</section>
-<section id="networks-2d-u1-1" class="slide level2 center">
-<h2>Networks 2D <span class="math inline">U(1)</span></h2>
-<ul>
-<li><p>Stack gauge links as <code>shape</code><span class="math inline">\left(U_{\mu}\right)</span><code>=[Nb, 2, Nt, Nx]</code> <span class="math inline">\in \mathbb{C}</span></p>
-<p><span class="math display"> x_{\mu}(n) ≔ \left[\cos(x), \sin(x)\right]</span></p>
-<p>with <code>shape</code><span class="math inline">\left(x_{\mu}\right)</span><code>= [Nb, 2, Nt, Nx, 2]</code> <span class="math inline">\in \mathbb{R}</span></p></li>
-<li><p><span class="math inline">x</span>-Network:</p>
-<ul>
-<li><span class="purple-text"><span class="math inline">\psi_{\theta}: (x, v) \longrightarrow \left(s_{x},\, t_{x},\, q_{x}\right)</span></span></li>
-</ul></li>
-<li><p><span class="math inline">v</span>-Network:</p>
-<ul>
-<li><span class="green-text"><span class="math inline">\varphi_{\theta}: (x, v) \longrightarrow \left(s_{v},\, t_{v},\, q_{v}\right)</span></span></li>
-</ul></li>
-</ul>
-</section>
-<section id="toy-example-gmm-in-mathbbr2" class="slide level2 centeredslide center">
-<h2>Toy Example: GMM <span class="math inline">\in \mathbb{R}^{2}</span></h2>
-<img data-src="https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/iso_gmm_chains.svg" id="fig-gmm" class="r-stretch">
-</section>
-<section id="physical-quantities" class="slide level2 center">
-<h2>Physical Quantities</h2>
-<ul>
-<li>To estimate physical quantities, we:
-<ul>
-<li>Calculate physical observables at <strong>increasing</strong> spatial resolution</li>
-<li>Perform extrapolation to continuum limit</li>
-</ul></li>
-</ul>
-
-<img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/static/continuum.svg" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;14: Increasing the physical resolution (<span class="math inline">a \rightarrow 0</span>) allows us to make predictions about numerical values of physical quantities in the continuum limit.</p></section></section>
-<section id="extra" class="title-slide slide level1 center">
-<h1>Extra</h1>
-
-
-<img data-src="./assets/thumbnail.png" class="r-stretch"><div class="footer footer-default">
+<div class="footer footer-default">
 
 </div>
 </section>
