@@ -10,9 +10,9 @@
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.3.450">
 
-  <meta name="author" content="Sam Foreman">
-  <meta name="dcterms.date" content="2024-04-24">
-  <title>MLMC: Machine Learning Monte Carlo</title>
+  <meta name="author" content="Emma Zhang">
+  <meta name="dcterms.date" content="2024-04-28">
+  <title>Probing the Ising Model’s Thermodynamics through Restricted Boltzmann Machines</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -359,71 +359,41 @@
       margin-right: 0; 
     }
   </style>
-<meta name="twitter:title" content="MLMC: Machine Learning Monte Carlo">
-<meta name="twitter:image" content="https://github.com/saforem2/lattice23/blob/main/assets/thumbnail.png?raw=true">
-<meta name="twitter:creator" content="@saforem2">
-<meta name="twitter:site" content="@saforem2">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="citation_title" content="MLMC: Machine Learning Monte Carlo for Lattice Gauge Theory">
-<meta name="citation_abstract" content="We present a trainable framework for efficiently generating gauge
-configurations, and discuss ongoing work in this direction. In particular, we
-consider the problem of sampling configurations from a 4D 𝑆𝑈(3) lattice gauge
-theory, and consider a generalized leapfrog integrator in the molecular
-dynamics update that can be trained to improve sampling efficiency.
-">
-<meta name="citation_author" content="Sam Foreman">
-<meta name="citation_publication_date" content="2024-04-24">
-<meta name="citation_cover_date" content="2024-04-24">
-<meta name="citation_year" content="2024">
-<meta name="citation_online_date" content="2024-04-24">
-<meta name="citation_fulltext_html_url" content="https://saforem2.github.io/lattice23">
-<meta name="citation_language" content="en">
-<meta name="citation_journal_title" content="https://indico.fnal.gov/event/57249/contributions/271305/">
-<meta name="citation_reference" content="citation_title=Progress on (g-2)_\mu from lattice QCD;,citation_author=Hartmut Wittig;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://arxiv.org/abs/2306.04165;">
-<meta name="citation_reference" content="citation_title=Hybrid Monte Carlo;,citation_author=S. Duane;,citation_author=A. D. Kennedy;,citation_author=B. J. Pendleton;,citation_author=D. Roweth;,citation_publication_date=1987;,citation_cover_date=1987;,citation_year=1987;,citation_doi=10.1016/0370-2693(87)91197-X;,citation_volume=195;,citation_journal_title=Phys. Lett. B;">
-<meta name="citation_reference" content="citation_title=Snowmass 2021 Computational Frontier CompF03 Topical Group Report: Machine Learning;,citation_author=Phiala Shanahan;,citation_author=others;,citation_publication_date=2022-09;,citation_cover_date=2022-09;,citation_year=2022;,citation_fulltext_html_url=https://arxiv.org/abs/2209.07559;">
-<meta name="citation_reference" content="citation_title=Applications of Machine Learning to Lattice Quantum Field Theory;,citation_author=Denis Boyda;,citation_author=others;,citation_publication_date=2022-02;,citation_cover_date=2022-02;,citation_year=2022;,citation_fulltext_html_url=https://arxiv.org/abs/2202.05838;,citation_conference_title=Snowmass 2021;">
-<meta name="citation_reference" content="citation_title=LeapfrogLayers: A Trainable Framework for Effective Topological Sampling;,citation_author=Sam Foreman;,citation_author=Xiao-Yong Jin;,citation_author=James C. Osborn;,citation_publication_date=2022-05;,citation_cover_date=2022-05;,citation_year=2022;,citation_fulltext_html_url=https://arxiv.org/abs/2112.01582;,citation_doi=10.22323/1.396.0508;,citation_volume=LATTICE2021;,citation_journal_title=PoS;">
-<meta name="citation_reference" content="citation_title=HMC with Normalizing Flows;,citation_author=Sam Foreman;,citation_author=Taku Izubuchi;,citation_author=Luchang Jin;,citation_author=Xiao-Yong Jin;,citation_author=James C. Osborn;,citation_author=Akio Tomiya;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_fulltext_html_url=https://arxiv.org/abs/2112.01586;,citation_doi=10.22323/1.396.0073;,citation_volume=LATTICE2021;,citation_journal_title=PoS;">
-<meta name="citation_reference" content="citation_title=Deep Learning Hamiltonian Monte Carlo;,citation_author=Sam Foreman;,citation_author=Xiao-Yong Jin;,citation_author=James C. Osborn;,citation_publication_date=2021-05;,citation_cover_date=2021-05;,citation_year=2021;,citation_fulltext_html_url=https://arxiv.org/abs/2105.03418;,citation_conference_title=9th International Conference on Learning Representations;">
 </head>
 <body class="quarto-dark">
   <div class="reveal">
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">MLMC: Machine Learning Monte Carlo</h1>
+  <h1 class="title">Probing the Ising Model’s Thermodynamics through Restricted Boltzmann Machines</h1>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-<a href="https://samforeman.me">Sam Foreman</a> <a href="https://orcid.org/0000-0002-9981-0876" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a>
+Emma Zhang 
 </div>
 <div class="quarto-title-author-email">
-<a href="mailto:foremans@anl.gov">foremans@anl.gov</a>
+<a href="mailto:xiazhang@g.hmc.edu">xiazhang@g.hmc.edu</a>
 </div>
         <p class="quarto-title-affiliation">
-            <a href="https://alcf.anl.gov/about/people/sam-foreman">
-            Argonne National Laboratory
-            </a>
+            Harvey Mudd College
           </p>
     </div>
 </div>
 
-  <p class="date">2024-04-24</p>
+  <p class="date">2024-04-28</p>
 </section>
 <section id="section" class="title-slide slide level1 centeredslide center" data-background-iframe="https://saforem2.github.io/grid-worms-animation/" loading="lazy">
 <h1></h1>
 <div style="background-color: rgba(22,22,22,0.75); border-radius: 10px; text-align:center; padding: 0px; padding-left: 1.5em; padding-right: 1.5em; max-width: min-content; min-width: max-content; margin-left: auto; margin-right: auto; padding-top: 0.2em; padding-bottom: 0.2em; line-height: 1.5em!important;">
-<p><span style="color:#939393; font-size:1.5em; font-weight: bold;">MLMC: Machine Learning Monte Carlo</span><br>
-<span style="color:#777777; font-size:1.2em; font-weight: bold;">for Lattice Gauge Theory</span><br>
+<p><span style="color:#939393; font-size:1.5em; font-weight: bold;">Probing the Ising Model’s Thermodynamics <br> through Restricted Boltzmann Machines</span><br>
 <span style="padding-bottom: 0.5rem;"><br>&nbsp;</span><br>
-<a href="https://samforeman.me"></a> Sam Foreman<br>
-<span class="dim-text" style="font-size:0.8em;">Xiao-Yong Jin, James C. Osborn</span><br>
-<span style="font-size:0.8em;"><span style="border-bottom: 0.5px solid #00ccff;"><a href="https://github.com/saforem2/"> <code>saforem2/</code></a></span><code>{</code><span style="border-bottom: 0.5px solid #00ccff;"><a href="https://github.com/saforem2/lattice23"><code>lattice23</code></a></span>, <span style="border-bottom: 0.5px solid #00ccff;"><a href="https://github.com/saforem2/l2hmc-qcd"><code>l2hmc-qcd</code></a></span><code>}</code></span></p>
+Emma Zhang<br>
+<span class="dim-text" style="font-size:0.8em;">Advisor: Prof.&nbsp;Weiqing Gu</span><br>
+<span class="dim-text" style="font-size:0.8em;">Reader: Prof.&nbsp;Daniel Tamayo</span></p>
 </div>
 <div class="footer">
-<p><span class="dim-text" style="&quot;text-align:left;'">2023-07-31 @ <a href="https://indico.fnal.gov/event/57249/contributions/271305/">Lattice 2023</a></span></p>
+<p><span class="dim-text" style="&quot;text-align:left;'">2024-04-29 @ Senior Thesis Presentation</span></p>
 </div>
 </section>
 
@@ -446,8 +416,8 @@ dynamics update that can be trained to improve sampling efficiency.
 </ol>
 </section>
 
-<section id="markov-chain-monte-carlo-mcmc" class="title-slide slide level1 centeredslide center">
-<h1>Markov Chain Monte Carlo (MCMC)</h1>
+<section id="physics-and-machine-learning-a-thought-experiment" class="title-slide slide level1 center">
+<h1>Physics and Machine Learning: A Thought Experiment</h1>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="callout callout-note callout-titled callout-style-default">
@@ -456,399 +426,268 @@ dynamics update that can be trained to improve sampling efficiency.
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Goal</strong></p>
+<p><strong>Question</strong></p>
 </div>
 <div class="callout-content">
-<p>Generate <strong>independent</strong> samples <span class="math inline">\{x_{i}\}</span>, such that<sup>1</sup> <span class="math display">\{x_{i}\} \sim p(x) \propto e^{-S(x)}</span> where <span class="math inline">S(x)</span> is the <em>action</em> (or potential energy)</p>
+<p>How can physics and machine learning be connected?</p>
 </div>
 </div>
 </div>
 <ul>
-<li>Want to calculate observables <span class="math inline">\mathcal{O}</span>:<br>
-<span class="math inline">\left\langle \mathcal{O}\right\rangle \propto \int \left[\mathcal{D}x\right]\hspace{4pt} {\mathcal{O}(x)\, p(x)}</span></li>
-</ul>
-</div><div class="column" style="width:49%;">
-<p><img data-src="https://raw.githubusercontent.com/saforem2/deep-fridays/main/assets/normal_distribution.dark.svg"></p>
-</div>
-</div>
-<p>If these were <span style="color:#00CCFF;">independent</span>, we could approximate: <span class="math inline">\left\langle\mathcal{O}\right\rangle \simeq \frac{1}{N}\sum^{N}_{n=1}\mathcal{O}(x_{n})</span><br>
-<span class="math display">\sigma_{\mathcal{O}}^{2} = \frac{1}{N}\mathrm{Var}{\left[\mathcal{O} (x)
-  \right]}\Longrightarrow \sigma_{\mathcal{O}} \propto \frac{1}{\sqrt{N}}</span></p>
-<div class="footer">
-<p><a href="https://saforem2.github.io/lattice23"> <code>saforem2/lattice23</code></a></p>
-</div>
-<aside><ol class="aside-footnotes"><li id="fn1"><p>Here, <span class="math inline">\sim</span> means “is distributed according to”</p></li></ol></aside></section>
-
-
-<section id="markov-chain-monte-carlo-mcmc-1" class="title-slide slide level1 centeredslide center">
-<h1>Markov Chain Monte Carlo (MCMC)</h1>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Goal</strong></p>
-</div>
-<div class="callout-content">
-<p>Generate <strong>independent</strong> samples <span class="math inline">\{x_{i}\}</span>, such that<sup>1</sup> <span class="math display">\{x_{i}\} \sim p(x) \propto e^{-S(x)}</span> where <span class="math inline">S(x)</span> is the <em>action</em> (or potential energy)</p>
-</div>
-</div>
-</div>
+<li>Every minute, an imaginary demon can either:
 <ul>
-<li>Want to calculate observables <span class="math inline">\mathcal{O}</span>:<br>
-<span class="math inline">\left\langle \mathcal{O}\right\rangle \propto \int \left[\mathcal{D}x\right]\hspace{4pt} {\mathcal{O}(x)\, p(x)}</span></li>
-</ul>
-</div><div class="column" style="width:49%;">
-<p><img data-src="https://raw.githubusercontent.com/saforem2/deep-fridays/main/assets/normal_distribution.dark.svg"></p>
-</div>
-</div>
-<p>Instead, nearby configs are <span class="red-text">correlated</span>, and we incur a factor of <span class="math inline">\textcolor{#FF5252}{\tau^{\mathcal{O}}_{\mathrm{int}}}</span>: <span class="math display">\sigma_{\mathcal{O}}^{2} =
-  \frac{\textcolor{#FF5252}{\tau^{\mathcal{O}}_{\mathrm{int}}}}{N}\mathrm{Var}{\left[\mathcal{O}
-  (x) \right]}</span></p>
-<div class="footer">
-<p><a href="https://github.com/saforem2/lattice23"> <code>saforem2/lattice23</code></a></p>
-</div>
-<aside><ol class="aside-footnotes"><li id="fn2"><p>Here, <span class="math inline">\sim</span> means “is distributed according to”</p></li></ol></aside></section>
-
-
-<section>
-<section id="hamiltonian-monte-carlo-hmc" class="title-slide slide level1 centeredslide center">
-<h1>Hamiltonian Monte Carlo (HMC)</h1>
-<ul>
-<li><p>Want to (sequentially) construct a chain of states: <span class="math display">x_{0} \rightarrow x_{1} \rightarrow x_{i} \rightarrow \cdots \rightarrow x_{N}\hspace{10pt}</span></p>
-<p>such that, as <span class="math inline">N \rightarrow \infty</span>: <span class="math display">\left\{x_{i}, x_{i+1}, x_{i+2}, \cdots, x_{N} \right\} \xrightarrow[]{N\rightarrow\infty} p(x)
-\propto e^{-S(x)}</span></p></li>
-</ul>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Trick</strong></p>
-</div>
-<div class="callout-content">
-<ul>
-<li>Introduce <span class="green-text">fictitious</span> momentum <span class="math inline">v \sim \mathcal{N}(0, \mathbb{1})</span>
-<ul>
-<li>Normally distributed <strong>independent</strong> of <span class="math inline">x</span>, i.e. <span class="math display">\begin{align*}
-p(x, v) &amp;\textcolor{#02b875}{=} p(x)\,p(v) \propto e^{-S{(x)}} e^{-\frac{1}{2} v^{T}v}
-= e^{-\left[S(x) + \frac{1}{2} v^{T}{v}\right]}
-\textcolor{#02b875}{=} e^{-H(x, v)}
-\end{align*}</span></li>
+<li>Press the button <span class="math inline">\Rightarrow</span> Output 1</li>
+<li>Not press the button <span class="math inline">\Rightarrow</span> Output 0</li>
 </ul></li>
-</ul>
-</div>
-</div>
-</div>
-</section>
-<section id="hamiltonian-monte-carlo-hmc-1" class="slide level2 centeredslide center">
-<h2>Hamiltonian Monte Carlo (HMC)</h2>
-<div class="columns">
-<div class="column" style="width:55%;">
-<ul>
-<li><p><span class="green-text"><strong>Idea</strong></span>: Evolve the <span class="math inline">(\dot{x}, \dot{v})</span> system to get new states <span class="math inline">\{x_{i}\}</span>❗</p></li>
-<li><p>Write the <strong>joint distribution</strong> <span class="math inline">p(x, v)</span>: <span class="math display">
-p(x, v) \propto e^{-S[x]} e^{-\frac{1}{2}v^{T} v} = e^{-H(x, v)}
-</span></p></li>
+<li>The outputs after 10 minutes: <span class="math display">\{0,1,1,0,0,\dots\}</span></li>
 </ul>
 </div><div class="column" style="width:45%;">
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Hamiltonian Dynamics</strong></p>
-</div>
-<div class="callout-content">
-<p><span class="math inline">H = S[x] + \frac{1}{2} v^{T} v \Longrightarrow</span> <span class="math display">\dot{x} = +\partial_{v} H,
-\,\,\dot{v} = -\partial_{x} H</span></p>
+<ul>
+<li>After 10 <span class="math inline">\times</span> 10 minutes:</li>
+</ul>
+<div class="fragment">
+<p><img data-src="https://raw.githubusercontent.com/EmmaZ49/thesistalk2024/main/assets/cat.png" class="absolute" style="top: 150px; right: 50px; width: 450px; height: 450px; "></p>
 </div>
 </div>
 </div>
-</div>
-</div>
+</section>
 
-<img data-src="https://raw.githubusercontent.com/saforem2/deep-fridays/main/assets/hmc1.svg" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;1: Overview of HMC algorithm</p></section>
-<section id="sec-leapfrog" class="slide level2 centeredslide center">
-<h2>Leapfrog Integrator (HMC)</h2>
-<div class="columns" style="text-align:center; font-size: 0.9em;" height="100%">
-<div class="column" style="width:48%;">
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Hamiltonian Dynamics</strong></p>
-</div>
-<div class="callout-content">
-<p><span class="math inline">\left(\dot{x}, \dot{v}\right) = \left(\partial_{v} H, -\partial_{x} H\right)</span></p>
-</div>
-</div>
-</div>
+<section id="the-ising-model" class="title-slide slide level1 center">
+<h1>The Ising Model</h1>
+<div class="columns">
+<div class="column" style="width:50%;">
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Leapfrog Step</strong></p>
+<p><strong>Goal</strong></p>
 </div>
 <div class="callout-content">
-<p><code>input</code> <span class="math inline">\,\left(x, v\right) \rightarrow \left(x', v'\right)\,</span> <code>output</code></p>
-<p><span class="math display">\begin{align*}
-\tilde{v} &amp;:= \textcolor{#F06292}{\Gamma}(x, v)\hspace{2.2pt} = v - \frac{\varepsilon}{2} \partial_{x} S(x) \\
-x' &amp;:= \textcolor{#FD971F}{\Lambda}(x, \tilde{v}) \, =  x + \varepsilon \, \tilde{v} \\
-v' &amp;:= \textcolor{#F06292}{\Gamma}(x', \tilde{v}) = \tilde{v} - \frac{\varepsilon}{2} \partial_{x} S(x')
-\end{align*}</span></p>
+<p>A simple but realistic model that captures the <em>magnetic</em> behavior of a system</p>
 </div>
 </div>
 </div>
-<div class="callout callout-warning callout-titled callout-style-default">
+<ul>
+<li>Spins, <span class="math inline">s</span>, occupy a lattice of <span class="math inline">N</span> sites</li>
+<li><span class="math inline">s_i</span> is the <strong>spin</strong> at site <span class="math inline">i</span>:
+<ul>
+<li>spin up: <span class="math inline">s_i = +1</span></li>
+<li>spin down: <span class="math inline">s_i = -1</span></li>
+</ul></li>
+<li>A <strong>spin configuration</strong> <span class="math inline">\{s_i\}</span> is a specific assignment of spins to each of the <span class="math inline">N</span> sites, e.g.&nbsp;<span class="math inline">\{s_1=-1, s_2 = +1, \dots, s_N = +1\}</span></li>
+</ul>
+</div><div class="column" style="width:45%;">
+<div id="fig-ising_lattice" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://web.stanford.edu/~peastman/statmech/_images/ising_model.svg"></p>
+<figcaption>Figure&nbsp;1: An example of an Ising model configuration</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+
+<section id="the-ising-hamiltonian" class="title-slide slide level1 centeredslide center">
+<h1>The Ising Hamiltonian</h1>
+<ul>
+<li><span class="green-text"><strong>Question</strong></span>: How does the Ising model capture magnetic behaviors?</li>
+<li>Different spin configurations <span class="math inline">\Rightarrow</span> different energies</li>
+</ul>
+<div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Warning!</strong></p>
+<p><strong>The Hamiltonian</strong></p>
 </div>
 <div class="callout-content">
+<p><span class="math inline">H(\{s_i\})</span> quantifies the <span class="green-text">energy</span> of the system with a specific spin configuration <span class="math inline">\{s_i\}</span></p>
+</div>
+</div>
+</div>
 <ul>
-<li>Resample <span class="math inline">v_{0} \sim \mathcal{N}(0, \mathbb{1})</span><br>
-at the <span class="yellow-text">beginning</span> of each trajectory</li>
+<li>Neighboring spins <span class="math inline">s_i</span> and <span class="math inline">s_j</span> interact with <strong>interaction strength</strong> <span class="math inline">J_{ij}</span><sup>1</sup> <span class="math display">H(\{s_i\}) = -\sum_{ij}J_{ij} s_{i}s_{j}</span></li>
 </ul>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>Negative sign ensures the configuration that minimizes the energy is preferred</p></li></ol></aside></section>
+
+
+<section id="phase-transitions" class="title-slide slide level1 centeredslide center">
+<h1>Phase Transitions</h1>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Phase Transitions</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Phase transitions</strong> occur when the system undergoes a sudden change in its macroscopic properties as a function of <em>temperature</em></p>
 </div>
 </div>
 </div>
-<div style="font-size:0.8em; margin-left:13%;">
-<p><span class="dim-text"><strong>Note</strong>: <span class="math inline">\partial_{x} S(x)</span> is the <em>force</em></span></p>
+<iframe data-external="1" src="https://player.vimeo.com/video/940520368" width="500" height="400" frameborder="0" allow="autoplay; title=" "="" fullscreen;="" picture-in-picture"="" allowfullscreen=""></iframe>
+</section>
+
+<section id="phase-transitions-1" class="title-slide slide level1 centeredslide center">
+<h1>Phase Transitions</h1>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li><p>Magnetization: <span class="math display">m = \frac{1}{N}\sum_{i=1}^N s_i</span></p></li>
+<li><p>Ising model phase transition occurs between:</p>
+<ul>
+<li>Ferromagnetic phase: <span class="math inline">m\neq 0</span></li>
+<li>Paramagnetic phase; <span class="math inline">m=0</span></li>
+</ul></li>
+<li><p><span class="math inline">T_c\approx 2.269 J/k_B</span></p></li>
+</ul>
+</div><div class="column" style="width:49%;">
+<div id="fig-mag" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://github.com/EmmaZ49/thesistalk2024/raw/main/assets/pre_magnetization_plot2.svg"></p>
+<figcaption>Figure&nbsp;2: Mean magnetization per spin as a function of temperature for 2D Ising models of sizes <span class="math inline">8\times 8</span>, <span class="math inline">16\times 16</span>, and <span class="math inline">32\times 32</span></figcaption>
+</figure>
 </div>
-</div><div class="column" style="text-align:left; margin-left:2%;">
-<p><img data-src="./assets/hmc1/hmc-update-light.svg" style="width:60.0%"></p>
 </div>
 </div>
 </section>
-<section id="hmc-update" class="slide level2 center">
-<h2>HMC Update</h2>
-<div class="columns">
-<div class="column" style="width:65%;">
-<ul>
-<li><p>We build a trajectory of <span class="math inline">N_{\mathrm{LF}}</span> <strong>leapfrog steps</strong><sup>1</sup> <span class="math display">\begin{equation*}
-(x_{0}, v_{0})%
-\rightarrow (x_{1}, v_{1})\rightarrow \cdots%
-\rightarrow (x', v')
-\end{equation*}</span></p></li>
-<li><p>And propose <span class="math inline">x'</span> as the next state in our chain</p></li>
-</ul>
-<p><span class="math display">\begin{align*}
-  \textcolor{#F06292}{\Gamma}: (x, v) \textcolor{#F06292}{\rightarrow} v' &amp;:= v - \frac{\varepsilon}{2} \partial_{x} S(x) \\
-  \textcolor{#FD971F}{\Lambda}: (x, v) \textcolor{#FD971F}{\rightarrow} x' &amp;:= x + \varepsilon v
-\end{align*}</span></p>
-<ul>
-<li>We then accept / reject <span class="math inline">x'</span> using Metropolis-Hastings criteria,<br>
-<span class="math inline">A(x'|x) = \min\left\{1, \frac{p(x')}{p(x)}\left|\frac{\partial x'}{\partial x}\right|\right\}</span></li>
-</ul>
-</div><div class="column" style="width:30%;">
-<p><img data-src="./assets/hmc1/hmc-update-light.svg"></p>
-</div>
-</div>
-<aside><ol class="aside-footnotes"><li id="fn3"><p>We <strong>always</strong> start by resampling the momentum, <span class="math inline">v_{0} \sim \mathcal{N}(0, \mathbb{1})</span></p></li></ol></aside></section>
 
-<section id="hmc-demo" class="slide level2 centeredslide center">
-<h2>HMC Demo</h2>
-<div id="fig-hmc-demo" class="quarto-figure quarto-figure-center">
-<figure>
-<iframe data-src="https://chi-feng.github.io/mcmc-demo/app.html" width="90%" height="500" title="l2hmc-qcd">
-</iframe>
-<figcaption>Figure&nbsp;2: HMC Demo</figcaption>
-</figure>
+<section id="neural-networks-for-babies" class="title-slide slide level1 centeredslide center">
+<h1>Neural Networks for Babies</h1>
+
+<img data-src="https://raw.githubusercontent.com/EmmaZ49/Thesis-Talk-Oct2023/main/neuron.svg" class="r-stretch"></section>
+
+<section id="neural-networks-for-babies-1" class="title-slide slide level1 centeredslide center">
+<h1>Neural Networks for Babies</h1>
+
+<img data-src="https://raw.githubusercontent.com/EmmaZ49/Thesis-Talk-Oct2023/main/Neural_network.svg" class="r-stretch"></section>
+
+<section id="restricted-boltzmann-machines" class="title-slide slide level1 center">
+<h1>Restricted Boltzmann Machines</h1>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-</section></section>
-<section id="sec-issues" class="title-slide slide level1 center" style="font-size:0.9em;">
-<h1>Issues with HMC</h1>
+<p><strong>Goal</strong></p>
+</div>
+<div class="callout-content">
+<p>Learn the probability distribution <span class="math inline">P(\{s_i\})</span> over a set of binary spins <span class="math inline">\{s_i\}</span></p>
+</div>
+</div>
+</div>
 <ul>
-<li>What do we want in a good sampler?
+<li><strong>Restricted Boltzmann Machines (RBMs)</strong>: two-layered neural networks with no intra-layer connection</li>
+<li>The interaction between visible units <span class="green-text"><span class="math inline">\{s_i\}</span></span> and hidden units <span class="blue-text"><span class="math inline">\{h_j\}</span></span> is
 <ul>
-<li><strong>Fast mixing</strong> (small autocorrelations)</li>
-<li><strong>Fast burn-in</strong> (quick convergence)</li>
-</ul></li>
-<li>Problems with HMC:
-<ul>
-<li>Energy levels selected randomly <span class="math inline">\rightarrow</span> <strong>slow mixing</strong></li>
-<li>Cannot easily traverse low-density zones <span class="math inline">\rightarrow</span> <strong>slow convergence</strong></li>
+<li><span class="dim-text" style="font-size:0.8em;"><strong>note:</strong> <span class="math inline">b_j, w_{ij}, c_i</span> are parameters</span></li>
 </ul></li>
 </ul>
-<div id="fig-hmc-issues" class="quarto-layout-panel">
-<figure>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/hmc_traj_eps025.svg"></p>
-<figcaption>HMC Samples with <span class="math inline">\varepsilon=0.25</span></figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/hmc_traj_eps05.svg"></p>
-<figcaption>HMC Samples with <span class="math inline">\varepsilon=0.5</span></figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p></p><figcaption>Figure&nbsp;3: HMC Samples generated with varying step sizes <span class="math inline">\varepsilon</span></figcaption><p></p>
-</figure>
+</div><div class="column" style="width:45%;">
+<p><img data-src="https://raw.githubusercontent.com/EmmaZ49/Thesis-Talk-Oct2023/main/Restricted_Boltzmann_machine.svg"></p>
+</div><p><span class="math display">E = \sum_i b_j h_j + \sum_{ij} \textcolor{green}{\{s_i\}} w_{ij} \textcolor{Skyblue}{\{h_j\}} + \sum_i c_i \textcolor{green}{\{s_i\}}</span></p>
 </div>
 </section>
 
-<section id="topological-freezing" class="title-slide slide level1 centeredslide center">
-<h1>Topological Freezing</h1>
-<div class="columns">
-<div class="column" style="width:45%;">
-<div style="text-align:left; font-size: 0.9em;">
-<p><strong>Topological Charge</strong>: <span class="math display">Q = \frac{1}{2\pi}\sum_{P}\left\lfloor x_{P}\right\rfloor  \in \mathbb{Z}</span></p>
+<section id="method-outline" class="title-slide slide level1 centeredslide center" data-auto-animate="true">
+<h1 data-id="quarto-animate-title">Method Outline</h1>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<p><span class="dim-text" style="font-size:0.8em;"><strong>note:</strong> <span class="math inline">\left\lfloor x_{P} \right\rfloor = x_{P} - 2\pi \left\lfloor\frac{x_{P} + \pi}{2\pi}\right\rfloor</span></span></p>
+<p><strong>Data Generation</strong></p>
+</div>
+<div class="callout-content">
+<p>Generate 2D Ising model data at different temperatures using <span class="blue-text">Monte Carlo simulations</span></p>
+</div>
+</div>
+</div>
+</section>
+
+<section id="method-outline-1" class="title-slide slide level1 centeredslide center" data-auto-animate="true">
+<h1 data-id="quarto-animate-title">Method Outline</h1>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Data Generation</strong></p>
+</div>
+<div class="callout-content">
+<p>Generate 2D Ising model data at different temperatures using <span class="blue-text">Monte Carlo simulations</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Neural Network Training</strong></p>
+</div>
+<div class="callout-content">
+<p>Train RBMs on Ising model data and study the <span class="green-text">learned patterns</span></p>
+</div>
+</div>
+</div>
+</section>
+
+<section id="method-outline-2" class="title-slide slide level1 centeredslide center" data-auto-animate="true">
+<h1 data-id="quarto-animate-title">Method Outline</h1>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Data Generation</strong></p>
+</div>
+<div class="callout-content">
+<p>Generate 2D Ising model data at different temperatures using <span class="blue-text">Monte Carlo simulations</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Neural Network Training</strong></p>
+</div>
+<div class="callout-content">
+<p>Train RBMs on Ising model data and study the <span class="green-text">learned patterns</span></p>
+</div>
+</div>
+</div>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Critical Slowing Down</strong></p>
+<p><strong>RBM Data Generation</strong></p>
 </div>
 <div class="callout-content">
-<ul>
-<li><span class="math inline">Q</span> gets stuck!
-<ul>
-<li>as <span class="math inline">\beta\longrightarrow \infty</span>:
-<ul>
-<li><span class="math inline">Q \longrightarrow \text{const.}</span></li>
-<li><span class="math inline">\delta Q = \left(Q^{\ast} - Q\right) \rightarrow 0 \textcolor{#FF5252}{\Longrightarrow}</span></li>
-</ul></li>
-<li># configs required to estimate errors<br>
-<strong>grows exponentially</strong>: <span class="red-text"><span class="math inline">\tau_{\mathrm{int}}^{Q} \longrightarrow \infty</span></span></li>
-</ul></li>
-</ul>
-</div>
-</div>
-</div>
-</div><div class="column" style="width:45%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/critical_slowing_down.svg" style="width:80.0%"></p>
-<figcaption>Note <span class="math inline">\delta Q \rightarrow 0</span> at increasing <span class="math inline">\beta</span></figcaption>
-</figure>
+<p>Generate <em>new</em> Ising configurations using RBM. How <span class="red-text">good</span> are these new configurations?</p>
 </div>
 </div>
 </div>
 </section>
 
-<section id="sec-can-we-do-better" class="title-slide slide level1 center">
-<h1>Can we do better?</h1>
-<div class="columns">
-<div class="column" style="width:50%;">
-<ul>
-<li>Introduce two (<strong>invertible NNs</strong>) <code>vNet</code> and <code>xNet</code><sup>1</sup>:
-<ul>
-<li><span style="font-size:0.9em;"><code>vNet:</code> <span class="math inline">(x, F) \longrightarrow \left(s_{v},\, t_{v},\, q_{v}\right)</span></span><br>
-</li>
-<li><span style="font-size:0.9em;"><code>xNet:</code> <span class="math inline">(x, v) \longrightarrow \left(s_{x},\, t_{x},\, q_{x}\right)</span></span></li>
-</ul></li>
-</ul>
-<p>&nbsp;</p>
-<ul>
-<li>Use these <span class="math inline">(s, t, q)</span> in the <em>generalized</em> MD update:
-<ul>
-<li><span><span class="pink-text"><span class="math inline">\Gamma_{\theta}^{\pm}</span></span> <span class="math inline">: ({x}, \textcolor{#07B875}{v}) \xrightarrow[]{\textcolor{#F06292}{s_{v}, t_{v}, q_{v}}} (x, \textcolor{#07B875}{v'})</span></span></li>
-<li><span><span class="orange-text"><span class="math inline">\Lambda_{\theta}^{\pm}</span></span> <span class="math inline">: (\textcolor{#AE81FF}{x}, v) \xrightarrow[]{\textcolor{#FD971F}{s_{x}, t_{x}, q_{x}}} (\textcolor{#AE81FF}{x'}, v)</span></span></li>
-</ul></li>
-</ul>
-</div><div class="column" style="width:48%;">
-<div id="fig-mdupdate" class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="./assets/leapfrog-layer-2D-U1-vertical.light.svg" style="width:85%; text-align:center;"></p>
-<figcaption>Figure&nbsp;4: Generalized MD update where <span class="orange-text"><span class="math inline">\Lambda_{\theta}^{\pm}</span></span>, <span class="pink-text"><span class="math inline">\Gamma_{\theta}^{\pm}</span></span> are <strong>invertible NNs</strong></figcaption>
-</figure>
-</div>
-</div>
-</div>
-<aside><ol class="aside-footnotes"><li id="fn4"><p><a href="https://github.com/saforem2/l2hmc-qcd">L2HMC:</a> <span class="citation" data-cites="Foreman:2021ixr Foreman:2021rhs">(<a href="#/references-1" role="doc-biblioref" onclick="">Foreman, Jin, and Osborn 2021</a>, <a href="#/references-1" role="doc-biblioref" onclick="">2022</a>)</span></p></li></ol></aside></section>
-
-
-<section>
-<section id="sec-l2hmc" class="title-slide slide level1 centeredslide center">
-<h1>L2HMC: Generalizing the MD Update</h1>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="callout callout-none no-icon callout-titled callout-style-simple">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>L2HMC Update</strong></p>
-</div>
-<div class="callout-content">
-<ul>
-<li><p>Introduce <span class="math inline">d \sim \mathcal{U}(\pm)</span> to determine the direction of our update</p>
-<ol type="1">
-<li><p><span><span class="math inline">\textcolor{#07B875}{v'} =</span> <span class="pink-text"><span class="math inline">\Gamma^{\pm}</span></span><span class="math inline">({x}, \textcolor{#07B875}{v})</span></span> <span class="dim-text" style="font-size:0.9em;"><span class="math inline">\hspace{46pt}</span> update <span class="math inline">v</span></span></p></li>
-<li><p><span><span class="math inline">\textcolor{#AE81FF}{x'} =</span> <span class="blue-text"><span class="math inline">x_{B}</span></span><span class="math inline">\,+\,</span><span class="orange-text"><span class="math inline">\Lambda^{\pm}</span></span><span class="math inline">(</span><span class="red-text"><span class="math inline">x_{A}</span></span><span class="math inline">, {v'})</span></span> <span class="dim-text" style="font-size:0.9em;"><span class="math inline">\hspace{10pt}</span> update first <strong>half</strong>: <span class="math inline">x_{A}</span></span></p></li>
-<li><p><span><span class="math inline">\textcolor{#AE81FF}{x''} =</span> <span class="red-text"><span class="math inline">x'_{A}</span></span><span class="math inline">\,+\,</span><span class="orange-text"><span class="math inline">\Lambda^{\pm}</span></span><span class="math inline">(</span><span class="blue-text"><span class="math inline">x'_{B}</span></span><span class="math inline">, {v'})</span></span> <span class="dim-text" style="font-size:0.9em;"><span class="math inline">\hspace{8pt}</span> update other half: <span class="math inline">x_{B}</span></span></p></li>
-<li><p><span><span class="math inline">\textcolor{#07B875}{v''} =</span> <span class="pink-text"><span class="math inline">\Gamma^{\pm}</span></span><span class="math inline">({x''}, \textcolor{#07B875}{v'})</span></span> <span class="dim-text" style="font-size:0.9em;"><span class="math inline">\hspace{36pt}</span> update <span class="math inline">v</span></span></p></li>
-</ol></li>
-</ul>
-</div>
-</div>
-</div>
-<div class="callout callout-none no-icon callout-titled callout-style-simple">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>🎲 Re-Sampling</strong></p>
-</div>
-<div class="callout-content">
-<ul>
-<li>Resample both <span class="math inline">v\sim \mathcal{N}(0, 1)</span>, and <span class="math inline">d \sim \mathcal{U}(\pm)</span> at the beginning of each trajectory
-<ul>
-<li>To ensure ergodicity + reversibility, we split the <span class="purple-text"><span class="math inline">x</span></span> update into sequential (complementary) updates</li>
-</ul></li>
-<li>Introduce directional variable <span class="math inline">d \sim \mathcal{U}(\pm)</span>, resampled at the beginning of each trajectory:
-<ul>
-<li>Note that <span class="math inline">\left(\Gamma^{+}\right)^{-1} = \Gamma^{-}</span>, i.e. <span class="math display">\Gamma^{+}\left[\Gamma^{-}(x, v)\right] = \Gamma^{-}\left[\Gamma^{+}(x,
-v)\right] = (x, v)</span></li>
-</ul></li>
-</ul>
-</div>
-</div>
-</div>
-</div><div class="column" style="width:50%;">
-<div id="fig-mdupdate" class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="./assets/leapfrog-layer-2D-U1-vertical.light.svg" style="width:85%; text-align:center;"></p>
-<figcaption>Figure&nbsp;5: Generalized MD update with <span class="orange-text"><span class="math inline">\Lambda_{\theta}^{\pm}</span></span>, <span class="pink-text"><span class="math inline">\Gamma_{\theta}^{\pm}</span></span> <strong>invertible NNs</strong></figcaption>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="l2hmc-leapfrog-layer" class="slide level2 centeredslide center">
-<h2>L2HMC: Leapfrog Layer</h2>
-<div class="columns">
-<div class="column" style="width:35%;">
-<p><img data-src="https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/drawio/update_steps.svg" class="absolute" style="top: 30px; width: 40%; "></p>
-</div><div class="column" style="width:65%;">
-<p><img data-src="https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/drawio/leapfrog_layer_dark2.svg" style="width:100.0%"></p>
-</div>
-</div>
-<p><img data-src="https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/drawio/network_functions.svg" class="absolute" style="top: 440px; width: 100%; "></p>
-</section>
-<section id="l2hmc-update" class="slide level2 center" style="font-size: 0.775em;">
-<h2>L2HMC Update</h2>
+<section id="generating-ising-configurations" class="title-slide slide level1 centeredslide center" data-auto-animate="true">
+<h1 data-id="quarto-animate-title">Generating Ising Configurations</h1>
 <div class="columns">
 <div class="column" style="font-size:0.99em;">
 <div class="callout callout-none no-icon callout-titled callout-style-simple">
@@ -858,516 +697,267 @@ v)\right] = (x, v)</span></li>
 </div>
 <div class="callout-content">
 <ol type="1">
-<li><p><code>input</code>: <span class="purple-text"><span class="math inline">x</span></span></p>
+<li><p><code>input</code>: Initial configuration <span class="purple-text"><span class="math inline">\{s_i\}</span></span></p></li>
+<li><p><code>spin/cluster selection</code>:</p>
 <ul>
-<li>Resample: <span class="math inline">\textcolor{#07B875}{v} \sim \mathcal{N}(0, \mathbb{1})</span>; <span class="math inline">\,\,{d\sim\mathcal{U}(\pm)}</span></li>
-<li>Construct initial state: <span class="math inline">\textcolor{#939393}{\xi} =(\textcolor{#AE81FF}{x}, \textcolor{#07B875}{v}, {\pm})</span></li>
+<li><span style="color:#f8f8f8">Metropolis</span>: Randomly select a <em>single</em> spin</li>
+<li><span style="color:#f8f8f8">Wolff</span>: Randomly select a seed spin and form a <em>cluster</em></li>
 </ul></li>
-<li><p><code>forward</code>: Generate <span style="color:#f8f8f8">proposal <span class="math inline">\xi'</span></span> by passing <span style="color:#939393">initial <span class="math inline">\xi</span></span> through <span class="math inline">N_{\mathrm{LF}}</span> leapfrog layers<br>
-<span class="math display">\textcolor{#939393} \xi \hspace{1pt}\xrightarrow[]{\tiny{\mathrm{LF} \text{ layer}}}\xi_{1} \longrightarrow\cdots \longrightarrow \xi_{N_{\mathrm{LF}}} = \textcolor{#f8f8f8}{\xi'} := (\textcolor{#AE81FF}{x''}, \textcolor{#07B875}{v''})</span></p>
+<li><p><code>flip</code>:</p>
 <ul>
-<li>Accept / Reject: <span class="math display">\begin{equation*}
-A({\textcolor{#f8f8f8}{\xi'}}|{\textcolor{#939393}{\xi}})=
-\mathrm{min}\left\{1,
-\frac{\pi(\textcolor{#f8f8f8}{\xi'})}{\pi(\textcolor{#939393}{\xi})} \left| \mathcal{J}\left(\textcolor{#f8f8f8}{\xi'},\textcolor{#939393}{\xi}\right)\right| \right\}
-\end{equation*}</span></li>
-</ul></li>
-<li><p><code>backward</code> (if training):</p>
+<li><span style="color:#f8f8f8">Metropolis</span>: Calculate the energy difference <span class="math inline">\textcolor{#07B875}{\Delta E}</span>.
 <ul>
-<li>Evaluate the <strong>loss function</strong><sup>1</sup> <span class="math inline">\mathcal{L}\gets \mathcal{L}_{\theta}(\textcolor{#f8f8f8}{\xi'}, \textcolor{#939393}{\xi})</span> and backprop</li>
+<li>If <span class="math inline">\textcolor{#07B875}{\Delta E} \leq 0</span>, flip</li>
+<li>If <span class="math inline">\textcolor{#07B875}{\Delta E} &gt;0</span>, flip with probability <span class="math inline">e^{-\Delta E/kT}</span></li>
 </ul></li>
-<li><p><code>return</code>: <span class="math inline">\textcolor{#AE81FF}{x}_{i+1}</span><br>
-Evaluate MH criteria <span class="math inline">(1)</span> and return accepted config, <span class="math display">\textcolor{#AE81FF}{{x}_{i+1}}\gets
-  \begin{cases}
-  \textcolor{#f8f8f8}{\textcolor{#AE81FF}{x''}} \small{\text{ w/ prob }} A(\textcolor{#f8f8f8}{\xi''}|\textcolor{#939393}{\xi}) \hspace{26pt} ✅ \\
-  \textcolor{#939393}{\textcolor{#AE81FF}{x}} \hspace{5pt}\small{\text{ w/ prob }} 1 - A(\textcolor{#f8f8f8}{\xi''}|{\textcolor{#939393}{\xi}}) \hspace{10pt} 🚫
-  \end{cases}</span></p></li>
+<li><span style="color:#f8f8f8">Wolff</span>: Add aligned neighboring spins to the cluster with probability <span class="math inline">P=e^{-2J/kT}</span>. Flip the cluster.</li>
+</ul></li>
+<li><p><code>iterate</code>: Repeat <code>spin/cluster selection</code> and <code>flip</code></p></li>
+<li><p><code>equilibrate</code>: Allow the system to equilibrate and start sampling</p></li>
+<li><p><code>return</code>: return sampled equilibrated configurations <span class="purple-text"><span class="math inline">\{s_i\}</span></span></p></li>
 </ol>
 </div>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
-<div id="fig-mdupdate" class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="./assets/leapfrog-layer-2D-U1-vertical.light.svg" style="width:75%; text-align:center;"></p>
-<figcaption>Figure&nbsp;6: <strong>Leapfrog Layer</strong> used in generalized MD update</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<aside><ol class="aside-footnotes"><li id="fn5"><p>For simple <span class="math inline">\mathbf{x} \in \mathbb{R}^{2}</span> example, <span class="math inline">\mathcal{L}_{\theta} = A(\xi^{\ast}|\xi)\cdot \left(\mathbf{x}^{\ast} - \mathbf{x}\right)^{2}</span></p></li></ol></aside></section>
-</section>
-<section>
-<section id="sec-su3" class="title-slide slide level1 centeredslide center" style="font-size: 0.9em;">
-<h1>4D <span class="math inline">SU(3)</span> Model</h1>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Link Variables</strong></p>
-</div>
-<div class="callout-content">
-<ul>
-<li><p>Write link variables <span class="math inline">U_{\mu}(x) \in SU(3)</span>:</p>
-<p><span class="math display"> \begin{align*}
-U_{\mu}(x) &amp;= \mathrm{exp}\left[{i\, \textcolor{#AE81FF}{\omega^{k}_{\mu}(x)} \lambda^{k}}\right]\\
-&amp;= e^{i \textcolor{#AE81FF}{Q}},\quad \text{with} \quad \textcolor{#AE81FF}{Q} \in \mathfrak{su}(3)
-\end{align*}</span></p>
-<p><span style="font-size:0.9em;">where <span class="purple-text"><span class="math inline">\omega^{k}_{\mu}(x)</span></span> <span class="math inline">\in \mathbb{R}</span>, and <span class="math inline">\lambda^{k}</span> are the generators of <span class="math inline">SU(3)</span></span></p></li>
-</ul>
-</div>
-</div>
-</div>
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Conjugate Momenta</strong></p>
+<p><strong>Simulation technique</strong></p>
 </div>
 <div class="callout-content">
+<p><span class="green-text">Monte Carlo</span> algorithms under periodic boundary conditions</p>
+</div>
+</div>
+</div>
 <ul>
-<li>Introduce <span class="green-text"><span class="math inline">P_{\mu}(x) = P^{k}_{\mu}(x) \lambda^{k}</span></span> conjugate to <span class="purple-text"><span class="math inline">\omega^{k}_{\mu}(x)</span></span></li>
+<li><strong>Metropolis algorithm</strong>: Randomly flip a spin</li>
+<li><em>Critical slow down</em>: hard to flip spins near critical temperature!
+<ul>
+<li><strong>Wolff Algorithm</strong> - flip spin <em>clusters</em></li>
+</ul></li>
 </ul>
 </div>
 </div>
-</div>
-<div class="callout callout-important callout-titled callout-style-default">
+</section>
+
+<section id="generating-ising-configurations-1" class="title-slide slide level1 centeredslide center" data-auto-animate="true">
+<h1 data-id="quarto-animate-title">Generating Ising Configurations</h1>
+<div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Wilson Action</strong></p>
+<p><strong>Simulation technique</strong></p>
 </div>
 <div class="callout-content">
-<p><span class="math display"> S_{G} = -\frac{\beta}{6} \sum
-\mathrm{Tr}\left[U_{\mu\nu}(x)
-+ U^{\dagger}_{\mu\nu}(x)\right] </span></p>
-<p>where <span class="math inline">U_{\mu\nu}(x) = U_{\mu}(x) U_{\nu}(x+\hat{\mu}) U^{\dagger}_{\mu}(x+\hat{\nu}) U^{\dagger}_{\nu}(x)</span></p>
+<p><span class="green-text">Monte Carlo</span> algorithms under periodic boundary conditions</p>
 </div>
 </div>
 </div>
-</div><div class="column" style="width:45%;">
-<div id="fig-4dlattice" class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="./assets/u1lattice.dark.svg" style="width:90.0%"></p>
-<figcaption>Figure&nbsp;7: Illustration of the lattice</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="sec-hmcsu3" class="slide level2 center">
-<h2>HMC: 4D <span class="math inline">SU(3)</span></h2>
-<p>Hamiltonian: <span class="math inline">H[P, U] = \frac{1}{2} P^{2} + S[U] \Longrightarrow</span></p>
-<div class="columns">
-<div class="column" style="font-size:0.9em; text-align: center;">
-<div class="callout callout-none no-icon callout-style-simple">
-<div class="callout-body">
-<div class="callout-content">
 <ul>
-<li><span style="border-bottom: 2px solid #AE81FF;"><span class="math inline">U</span> update</span>: <span class="purple-text" style="font-size:1.5em;"><span class="math inline">\frac{d\omega^{k}}{dt} = \frac{\partial H}{\partial P^{k}}</span></span> <span class="math display">\frac{d\omega^{k}}{dt}\lambda^{k} = P^{k}\lambda^{k} \Longrightarrow \frac{dQ}{dt} = P</span> <span class="math display">\begin{align*}
-Q(\textcolor{#FFEE58}{\varepsilon}) &amp;= Q(0) + \textcolor{#FFEE58}{\varepsilon} P(0)\Longrightarrow\\
--i\, \log U(\textcolor{#FFEE58}{\varepsilon}) &amp;= -i\, \log U(0) + \textcolor{#FFEE58}{\varepsilon} P(0) \\
-U(\textcolor{#FFEE58}{\varepsilon}) &amp;= e^{i\,\textcolor{#FFEE58}{\varepsilon} P(0)} U(0)\Longrightarrow \\
-&amp;\hspace{1pt}\\
-\textcolor{#FD971F}{\Lambda}:\,\, U \longrightarrow U' &amp;:= e^{i\varepsilon P'} U
-\end{align*}</span></li>
+<li>Collected 10,000 Ising configurations for T = 0.25, 0.5, 0.75,…,4.0 (in <span class="math inline">J/k_B</span>)</li>
 </ul>
-</div>
-</div>
-</div>
 
-</div><div class="column" style="font-size:0.9em; text-align: center;">
-<div class="callout callout-none no-icon callout-style-simple">
-<div class="callout-body">
-<div class="callout-content">
-<ul>
-<li><span style="border-bottom: 2px solid #07B875;"><span class="math inline">P</span> update</span>: <span class="green-text" style="font-size:1.5em;"><span class="math inline">\frac{dP^{k}}{dt} = - \frac{\partial H}{\partial \omega^{k}}</span></span> <span class="math display">\frac{dP^{k}}{dt} = - \frac{\partial H}{\partial \omega^{k}}
-= -\frac{\partial H}{\partial Q} = -\frac{dS}{dQ}\Longrightarrow</span> <span class="math display">\begin{align*}
-P(\textcolor{#FFEE58}{\varepsilon}) &amp;= P(0) - \textcolor{#FFEE58}{\varepsilon} \left.\frac{dS}{dQ}\right|_{t=0} \\
-&amp;= P(0) - \textcolor{#FFEE58}{\varepsilon} \,\textcolor{#E599F7}{F[U]} \\
-&amp;\hspace{1pt}\\
-\textcolor{#F06292}{\Gamma}:\,\, P \longrightarrow P' &amp;:= P - \frac{\varepsilon}{2} F[U]
-\end{align*}</span></li>
-</ul>
-</div>
-</div>
-</div>
+<img data-src="https://github.com/EmmaZ49/thesistalk2024/raw/main/assets/pre_ising_configs.svg" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;3: Samples of 64 <span class="math inline">\times</span> 64 Ising model configurations</p></section>
 
-</div>
-</div>
-<aside><div>
-<p><span class="dim-text" style="font-size:0.8em;"><span class="math inline">\textcolor{#FFEE58}{\varepsilon}</span> is the step size</span></p>
-</div><div>
-<p><span class="dim-text" style="font-size:0.8em;"><span class="math inline">\textcolor{#E599F7}{F[U]}</span> is the force term</span></p>
-</div></aside></section>
-<section id="hmc-4d-su3" class="slide level2 centeredslide center">
-<h2>HMC: 4D <span class="math inline">SU(3)</span></h2>
-<div class="columns">
-<div class="column" style="text-align:left;">
-<ul>
-<li><p><span style="border-bottom: 2px solid #F06292;">Momentum Update</span>: <span class="math display">\textcolor{#F06292}{\Gamma}: P \longrightarrow P' := P - \frac{\varepsilon}{2} F[U]</span></p></li>
-<li><p><span style="border-bottom: 2px solid #FD971F;">Link Update</span>: <span class="math display">\textcolor{#FD971F}{\Lambda}: U \longrightarrow U' := e^{i\varepsilon P'} U\quad\quad</span></p></li>
-<li><p>We maintain a batch of <code>Nb</code> lattices, all updated in parallel</p>
-<ul>
-<li><span class="math inline">U</span><code>.dtype = complex128</code></li>
-<li><span class="math inline">U</span><code>.shape</code><br>
-<span style="font-size: 0.95em;"><code>= [Nb, 4, Nt, Nx, Ny, Nz, 3, 3]</code></span></li>
-</ul></li>
-</ul>
-</div><div class="column" style="text-align:right;">
-<p><img data-src="./assets/hmc/hmc-update-light.svg" style="width:60.0%"></p>
-</div>
-</div>
-</section></section>
-<section id="sec-su3networks" class="title-slide slide level1 centeredslide center" data-auto-animate="true">
-<h1 data-id="quarto-animate-title">Networks 4D <span class="math inline">SU(3)</span></h1>
-<div class="columns">
-<div class="column" style="font-size:0.9em;">
-<p>&nbsp;<br></p>
-<p>&nbsp;<br></p>
-<p><span class="purple-text"><span class="math inline">U</span></span>-Network:</p>
-<p><span style="font-size:0.9em;"><code>UNet:</code> <span class="math inline">(U, P) \longrightarrow \left(s_{U},\, t_{U},\, q_{U}\right)</span></span></p>
-<p>&nbsp;<br></p>
-<div style="border: 1px solid #1c1c1c; border-radius: 6px; padding:1%;">
-<p><span class="green-text"><span class="math inline">P</span></span>-Network:</p>
-<p><span style="font-size:0.9em;"><code>PNet:</code> <span class="math inline">(U, P) \longrightarrow \left(s_{P},\, t_{P},\, q_{P}\right)</span></span></p>
-</div>
-</div><div class="column" style="text-align:right;">
-<p><img data-src="./assets/leapfrog-layer-4D-SU3-vertical.light.svg" style="width:80.0%"></p>
-</div>
-</div>
-</section>
-
-<section>
-<section id="networks-4d-su3" class="title-slide slide level1 centeredslide center" data-auto-animate="true">
-<h1 data-id="quarto-animate-title">Networks 4D <span class="math inline">SU(3)</span></h1>
-<div class="columns">
-<div class="column" style="font-size:0.9em;">
-<p>&nbsp;<br></p>
-<p>&nbsp;<br></p>
-<p><span class="purple-text"><span class="math inline">U</span></span>-Network:</p>
-<p><span style="font-size:0.9em;"><code>UNet:</code> <span class="math inline">(U, P) \longrightarrow \left(s_{U},\, t_{U},\, q_{U}\right)</span></span></p>
-<p>&nbsp;<br></p>
-<div style="border: 1px solid #07B875; border-radius: 6px; padding:1%;">
-<p><span class="green-text"><span class="math inline">P</span></span>-Network:</p>
-<p><span style="font-size:0.9em;"><code>PNet:</code> <span class="math inline">(U, P) \longrightarrow \left(s_{P},\, t_{P},\, q_{P}\right)</span></span></p>
-</div>
-<p><span class="dim-text"><span class="math inline">\uparrow</span></span><br>
-<span class="dim-text" style="padding-top: 0.5em!important;">let’s look at this</span></p>
-</div><div class="column" style="text-align:right;">
-<p><img data-src="./assets/leapfrog-layer-4D-SU3-vertical.light.svg" style="width:80.0%"></p>
-</div>
-</div>
-</section>
-<section id="p-network-pt.-1" class="slide level2 center" style="font-size:0.95em;">
-<h2><span class="math inline">P</span>-<code>Network</code> (pt.&nbsp;1)</h2>
-<div style="text-align:center;">
-<p><img data-src="./assets/SU3/PNetwork.light.svg"></p>
-</div>
+<section id="training-rbms" class="title-slide slide level1 centeredslide center">
+<h1>Training RBMs</h1>
 <div class="columns">
 <div class="column" style="width:50%;">
 <ul>
-<li><span style="border-bottom: 2px solid rgba(131, 131, 131, 0.493);"><code>input</code><sup>1</sup>: <span class="math inline">\hspace{7pt}\left(U, F\right) := (e^{i Q}, F)</span></span> <span class="math display">\begin{align*}
-h_{0} &amp;= \sigma\left( w_{Q} Q + w_{F} F + b \right) \\
-h_{1} &amp;= \sigma\left( w_{1} h_{0} + b_{1} \right) \\
-&amp;\vdots \\
-h_{n} &amp;= \sigma\left(w_{n-1} h_{n-2} + b_{n}\right) \\
-\textcolor{#FF5252}{z} &amp; := \sigma\left(w_{n} h_{n-1} + b_{n}\right) \longrightarrow \\
-\end{align*}</span></li>
+<li>Train RBM at each temperature with <span class="math inline">n_h=900</span> hidden units</li>
+<li>Convergence within &lt;200 epochs with stable loss reduction</li>
+<li>Gaussian distribution of learned weights</li>
 </ul>
-</div><div class="column" style="width:50%;">
-<ul>
-<li><p><span style="border-bottom: 2px solid rgba(131, 131, 131, 0.5);"><code>output</code><sup>2</sup>: <span class="math inline">\hspace{7pt} (s_{P}, t_{P}, q_{P})</span></span></p>
-<ul>
-<li><span class="math inline">s_{P} = \lambda_{s} \tanh(w_s \textcolor{#FF5252}{z} + b_s)</span></li>
-<li><span class="math inline">t_{P} = w_{t} \textcolor{#FF5252}{z} + b_{t}</span></li>
-<li><span class="math inline">q_{P} = \lambda_{q} \tanh(w_{q} \textcolor{#FF5252}{z} + b_{q})</span></li>
-</ul></li>
-</ul>
+</div><div class="column" style="width:49%;">
+<div id="fig-weights" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://github.com/EmmaZ49/thesistalk2024/raw/main/assets/pre_pdf_filled_styled.svg"></p>
+<figcaption>Figure&nbsp;4: Probability density function (PDF) of learned weights <span class="math inline">w_{ij}</span> at temperatures below, near, and above <span class="math inline">T_c</span></figcaption>
+</figure>
 </div>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn6"><p><span class="math inline">\sigma(\cdot)</span> denotes an activation function</p></li><li id="fn7"><p><span class="math inline">\lambda_{s},\, \lambda_{q} \in \mathbb{R}</span> are trainable parameters</p></li></ol></aside></section>
-
-<section id="p-network-pt.-2" class="slide level2 center" style="font-size:0.9em;">
-<h2><span class="math inline">P</span>-<code>Network</code> (pt.&nbsp;2)</h2>
-<div style="text-align:center;">
-<p><img data-src="./assets/SU3/PNetwork.light.svg"></p>
 </div>
-<ul>
-<li><p>Use <span class="math inline">(s_{P}, t_{P}, q_{P})</span> to update <span class="math inline">\Gamma^{\pm}: (U, P) \rightarrow \left(U, P_{\pm}\right)</span><sup>1</sup>:</p>
-<ul>
-<li><p><span style="color:#FF5252">forward</span> <span class="math inline">(d = \textcolor{#FF5252}{+})</span>: <span class="math display">\Gamma^{\textcolor{#FF5252}{+}}(U, P) := P_{\textcolor{#FF5252}{+}} = P \cdot e^{\frac{\varepsilon}{2} s_{P}} - \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{P}} + t_{P} \right]</span></p></li>
-<li><p><span style="color:#1A8FFF;">backward</span> <span class="math inline">(d = \textcolor{#1A8FFF}{-})</span>: <span class="math display">\Gamma^{\textcolor{#1A8FFF}{-}}(U, P) := P_{\textcolor{#1A8FFF}{-}} = e^{-\frac{\varepsilon}{2} s_{P}} \left\{P + \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{P}} + t_{P} \right]\right\}</span></p></li>
-</ul></li>
-</ul>
-<aside><ol class="aside-footnotes"><li id="fn8"><p>Note that <span class="math inline">\left(\Gamma^{+}\right)^{-1} = \Gamma^{-}</span>, i.e.&nbsp;<span class="math inline">\Gamma^{+}\left[\Gamma^{-}(U, P)\right] = \Gamma^{-}\left[\Gamma^{+}(U, P)\right] = (U, P)</span></p></li></ol></aside></section>
 </section>
-<section>
-<section id="sec-results" class="title-slide slide level1 centeredslide center">
-<h1>Results: 2D <span class="math inline">U(1)</span></h1>
-<div class="columns">
-<div class="column" style="align:top;">
-<p><img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/autocorr_new.svg" style="width:90.0%"></p>
-</div><div class="column" style="text-align:left; padding-top: 5%;">
-<div class="callout callout-important callout-titled callout-style-default">
+
+<section id="learned-patterns" class="title-slide slide level1 centeredslide center">
+<h1>Learned Patterns</h1>
+<div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Improvement</strong></p>
+<p><strong>Filters</strong></p>
 </div>
 <div class="callout-content">
-<p>We can measure the performance by comparing <span class="math inline">\tau_{\mathrm{int}}</span> for the <span style="color:#FF2052;"><strong>trained model</strong></span> vs. <span style="color:#9F9F9F;"><strong>HMC</strong></span>.</p>
-<p><strong>Note</strong>: <span style="color:#FF2052;">lower</span> is better</p>
+<p>Filters <span class="math inline">w_i^T</span> extract patterns in Ising configurations</p>
 </div>
 </div>
 </div>
+<p>Large fluctuation in patterns near <span class="math inline">T_c</span>❗</p>
+
+<img data-src="https://github.com/EmmaZ49/thesistalk2024/raw/main/assets/pre_sample_filters_temp_900.svg" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;5: Five sample filters at temperatures below, near, and above <span class="math inline">T_c</span></p></section>
+
+<section id="rbm-generated-ising-configurations" class="title-slide slide level1 centeredslide center" data-auto-animate="true">
+<h1 data-id="quarto-animate-title">RBM-Generated Ising Configurations</h1>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
+<p><strong>Goal</strong></p>
 </div>
-<p><img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/charge_histories.svg" class="absolute" style="margin-bottom: 1em;margin-top: 1em;top: 400px; left: 0px; width: 100%; "></p>
-</section>
-<section id="sec-interpretation" class="slide level2 centeredslide center">
-<h2>Interpretation</h2>
-<div class="columns" style="margin-left:1pt;">
-<div class="column" style="width:36%;">
-<p><span class="dim-text" style="text-align:center; font-size:0.8em">Deviation in <span class="math inline">x_{P}</span></span></p>
-</div><div class="column" style="width:30%;">
-<p><span class="dim-text" style="text-align:right; font-size:0.8em">Topological charge mixing</span></p>
-</div><div class="column" style="width:32%;">
-<p><span class="dim-text" style="text-align:right!important; font-size:0.8em;">Artificial influx of energy</span></p>
+<div class="callout-content">
+<p>At each temperature, generate 1000 new Ising configurations using the corresponding RBM</p>
+</div>
 </div>
 </div>
 
-<img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/ridgeplots.svg" style="width:100.0%" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;8: Illustration of how different observables evolve over a single L2HMC trajectory.</p></section>
-<section id="interpretation" class="slide level2 centeredslide center">
-<h2>Interpretation</h2>
-<div id="fig-energy-ridgeplot" class="quarto-layout-panel">
-<figure>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/plaqsf_ridgeplot.svg"></p>
-<figcaption>Average plaquette: <span class="math inline">\langle x_{P}\rangle</span> vs LF step</figcaption>
-</figure>
+<img data-src="https://github.com/EmmaZ49/thesistalk2024/raw/main/assets/gen_vs_org.svg" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;6: Samples of original configurations (top) and generated configurations (bottom) at T=2.25</p></section>
+
+<section id="rbm-generated-ising-configurations-1" class="title-slide slide level1 centeredslide center" data-auto-animate="true">
+<h1 data-id="quarto-animate-title">RBM-Generated Ising Configurations</h1>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
+<p><strong>Goal</strong></p>
 </div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/Hf_ridgeplot.svg"></p>
-<figcaption>Average energy: <span class="math inline">H - \sum\log|\mathcal{J}|</span></figcaption>
-</figure>
+<div class="callout-content">
+<p>At each temperature, generate 1000 new Ising configurations using the corresponding RBM</p>
 </div>
 </div>
 </div>
-<p></p><figcaption>Figure&nbsp;9: The trained model artifically increases the energy towards the middle of the trajectory, allowing the sampler to tunnel between isolated sectors.</figcaption><p></p>
-</figure>
+
+<img data-src="https://github.com/EmmaZ49/thesistalk2024/raw/main/assets/gen_vs_org.svg" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;7: Samples of original configurations (top) and generated configurations (bottom) at T=2.25</p><div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-</section></section>
-<section>
-<section id="sec-su3results" class="title-slide slide level1 center">
-<h1>4D <span class="math inline">SU(3)</span> Results</h1>
+<p><strong>Are these good?</strong></p>
+</div>
+<div class="callout-content">
+<p>How similar are these new configurations to the original ones?</p>
+</div>
+</div>
+</div>
+</section>
+
+<section id="optimal-transport" class="title-slide slide level1 centeredslide center" data-auto-animate="true">
+<h1 data-id="quarto-animate-title">Optimal Transport</h1>
+<div class="columns">
+<div class="column" style="width:55%;">
 <ul>
-<li>Distribution of <span class="math inline">\log|\mathcal{J}|</span> over all chains, at each <em>leapfrog step</em>, <span class="math inline">N_{\mathrm{LF}}</span> (<span class="math inline">= 0, 1, \ldots, 8</span>) during training:</li>
+<li><p><span class="green-text"><strong>Idea</strong></span>: Quantitatively compare probability distributions</p></li>
+<li><p>Given probability distributions <span class="math inline">(x,\mu)</span> on <span class="math inline">\mathcal{X}</span> and <span class="math inline">(y,\nu)</span> on <span class="math inline">\mathcal{Y}</span>, find a map <span class="math inline">\Pi(\mu, \nu)</span> that minimizes the cost of the transport <span class="math display">\inf_{\gamma \in \Pi(\mu, \nu)} \int_{\mathcal{X} \times \mathcal{Y}} c(x, y) , d\gamma(x, y)</span></p></li>
 </ul>
-<div class="quarto-layout-panel" style="display: flex; flex-direction: row; margin-top: -0.0em; align-items: center;">
-<div class="quarto-layout-row quarto-layout-valign-center">
-<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
-<div id="fig-ridgeplot1" class="quarto-figure quarto-figure-center">
+</div><div class="column" style="width:45%;">
+
+</div>
+</div>
+
+<img data-src="https://miro.medium.com/v2/resize:fit:1400/1*G9olSlGBDUeAsv6t5xGohQ.png" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;8: Illustration of optimal transport (credit: Daniela Vogler and Gero Friesecke)</p></section>
+
+<section id="optimal-transport-1" class="title-slide slide level1 centeredslide center" data-auto-animate="true">
+<h1 data-id="quarto-animate-title">Optimal Transport</h1>
+<div class="columns">
+<div class="column" style="width:55%;">
+<ul>
+<li><p><span class="green-text"><strong>Idea</strong></span>: Quantitatively compare probability distributions</p></li>
+<li><p>Given probability distributions <span class="math inline">(x,\mu)</span> on <span class="math inline">\mathcal{X}</span> and <span class="math inline">(y,\nu)</span> on <span class="math inline">\mathcal{Y}</span>, find a map <span class="math inline">\Pi(\mu, \nu)</span> that minimizes the cost of the transport <span class="math display">\inf_{\gamma \in \Pi(\mu, \nu)} \int_{\mathcal{X} \times \mathcal{Y}} c(x, y) , d\gamma(x, y)</span></p></li>
+</ul>
+</div><div class="column" style="width:45%;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Wasserstein Distance</strong></p>
+</div>
+<div class="callout-content">
+<p>For two probability measures <span class="math inline">\mu</span> and <span class="math inline">\nu</span> on the <em>same</em> space <span class="math inline">\mathcal{X}</span>: <span class="math display">W(\mu, \nu) = \inf_{\gamma \in \Pi(\mu, \nu)} \int_{\mathcal{X} \times \mathcal{X}} d(x, y) , d\gamma(x, y)</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<img data-src="https://miro.medium.com/v2/resize:fit:1400/1*G9olSlGBDUeAsv6t5xGohQ.png" class="r-stretch">
+</section>
+
+<section id="generated-vs.-original" class="title-slide slide level1 centeredslide center">
+<h1>Generated vs.&nbsp;Original</h1>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li>Compare probability distributions over the space of possible states</li>
+</ul>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Unexpected trend!</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>Wasserstein distance is lower around <span class="math inline">T_c</span> and has a sharp dip at T=2.0</li>
+</ul>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:49%;">
+<div id="fig-wass" class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./assets/SU3/logdet_ridgeplot1.svg"></p>
-<figcaption>Figure&nbsp;10: <code>100</code> train iters</figcaption>
+<p><img data-src="https://github.com/EmmaZ49/thesistalk2024/raw/main/assets/pre_wasserstein_distance_900_2.svg"></p>
+<figcaption>Figure&nbsp;9: Wasserstein distance across temperatures</figcaption>
 </figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
-<div id="fig-ridgeplot2" class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="./assets/SU3/logdet_ridgeplot2.svg"></p>
-<figcaption>Figure&nbsp;11: <code>500</code> train iters</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
-<div id="fig-ridgeplot3" class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="./assets/SU3/logdet_ridgeplot3.svg"></p>
-<figcaption>Figure&nbsp;12: <code>1000</code> train iters</figcaption>
-</figure>
-</div>
 </div>
 </div>
 </div>
 </section>
-<section id="d-su3-results-delta-u_munu" class="slide level2 center">
-<h2>4D <span class="math inline">SU(3)</span> Results: <span class="math inline">\delta U_{\mu\nu}</span></h2>
 
-<img data-src="./assets/SU3/pdiff.svg" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;13: The difference in the average plaquette <span class="math inline">\left|\delta U_{\mu\nu}\right|^{2}</span> between the trained model and HMC</p></section>
-<section id="d-su3-results-delta-u_munu-1" class="slide level2 center">
-<h2>4D <span class="math inline">SU(3)</span> Results: <span class="math inline">\delta U_{\mu\nu}</span></h2>
-
-<img data-src="./assets/SU3/pdiff-robust.svg" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;14: The difference in the average plaquette <span class="math inline">\left|\delta U_{\mu\nu}\right|^{2}</span> between the trained model and HMC</p></section></section>
-<section>
 <section id="sec-next-steps" class="title-slide slide level1 center">
 <h1>Next Steps</h1>
 <ul>
-<li><p>Further code development</p>
+<li>What caused the unusual trend in Wasserstein distance?</li>
+<li>Explore features of the hidden layer of RBM. How is it learning?</li>
+<li>Can we generate better configurations with more hidden units?</li>
+</ul>
+</section>
+
+<section>
+<section id="sec-acknowledgements" class="title-slide slide level1 center">
+<h1>Acknowledgements</h1>
 <ul>
-<li> <a href="https://github.com/saforem2/l2hmc-qcd"><code>saforem2/l2hmc-qcd</code></a></li>
-</ul></li>
-<li><p>Continue to use / test different network architectures</p>
+<li>Thank you to:
 <ul>
-<li>Gauge equivariant NNs for <span class="math inline">U_{\mu}(x)</span> update</li>
-</ul></li>
-<li><p>Continue to test different loss functions for training</p></li>
-<li><p>Scaling:</p>
-<ul>
-<li>Lattice volume</li>
-<li>Network size</li>
-<li>Batch size</li>
-<li># of GPUs</li>
+<li>Prof.&nbsp;Weiqing Gu</li>
+<li>Prof.&nbsp;Daniel Tamayo</li>
+<li>Prof.&nbsp;Jon Jacobsen</li>
+<li>Melissa Hernandez-Alvarez</li>
+<li>DruAnn Thomas</li>
+<li>Jocelyn Olds-McSpadden</li>
+<li>Math department faculty</li>
+<li>Math thesis students</li>
 </ul></li>
 </ul>
 </section>
-<section id="sec-thank-you" class="slide level2 center">
-<h2>Thank you!</h2>
-<p>&nbsp;<br></p>
-<div class="quarto-layout-panel" style="text-align:left; font-size:0.8em;">
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
-<p><span style="font-size:0.8em;"><a href="https://samforeman.me"> <code>samforeman.me</code></a></span></p>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
-<p><span style="font-size:0.8em;"><a href="https://github.com/saforem2"> <code>saforem2</code></a></span></p>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
-<p><span style="font-size:0.8em;"><a href="https://www.twitter.com/saforem2"> <code>@saforem2</code></a></span></p>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
-<p><span style="font-size:0.8em;"><a href="mailto:///foremans@anl.gov"> <code>foremans@anl.gov</code></a></span></p>
-</div>
-</div>
-</div>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Acknowledgements</strong></p>
-</div>
-<div class="callout-content">
-<p>This research used resources of the Argonne Leadership Computing Facility,<br>
-which is a DOE Office of Science User Facility supported under Contract DE-AC02-06CH11357.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="sec-l2hmc-gh" class="slide level2 center">
-<h2></h2>
-<div style="text-align:center;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><a href="https://github.com/saforem2/l2hmc-qcd"><img data-src="https://raw.githubusercontent.com/saforem2/l2hmc-qcd/main/assets/logo-small.svg"></a></p>
-</figure>
-</div>
-<p><a href="https://hits.seeyoufarm.com"><img alt="hits" src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fsaforem2%2Fl2hmc-qcd&amp;count_bg=%2300CCFF&amp;title_bg=%23555555&amp;icon=&amp;icon_color=%23111111&amp;title=👋&amp;edge_flat=false"></a> <a href="https://github.com/saforem2/l2hmc-qcd/"><img alt="l2hmc-qcd" src="https://img.shields.io/badge/-l2hmc--qcd-252525?style=flat&amp;logo=github&amp;labelColor=gray"></a> <a href="https://www.codefactor.io/repository/github/saforem2/l2hmc-qcd"><img alt="codefactor" src="https://www.codefactor.io/repository/github/saforem2/l2hmc-qcd/badge"></a></p>
-<p><a href="https://arxiv.org/abs/2112.01582"><img alt="arxiv" src="http://img.shields.io/badge/arXiv-2112.01582-B31B1B.svg"></a> <a href="https://arxiv.org/abs/2105.03418"><img alt="arxiv" src="http://img.shields.io/badge/arXiv-2105.03418-B31B1B.svg"></a></p>
-<p><a href="https://hydra.cc"><img alt="hydra" src="https://img.shields.io/badge/Config-Hydra-89b8cd"></a> <a href="https://pytorch.org/get-started/locally/"><img alt="pyTorch" src="https://img.shields.io/badge/PyTorch-ee4c2c?logo=pytorch&amp;logoColor=white"></a> <a href="https://www.tensorflow.org"><img alt="tensorflow" src="https://img.shields.io/badge/TensorFlow-%23FF6F00.svg?&amp;logo=TensorFlow&amp;logoColor=white"></a> <a href="https://wandb.ai/l2hmc-qcd/l2hmc-qcd"><img src="https://raw.githubusercontent.com/wandb/assets/main/wandb-github-badge-28.svg" alt="Weights &amp; Biases monitoring" height="20"></a></p>
-</div>
-</section>
-<section id="sec-acknowledgements" class="slide level2 center">
-<h2>Acknowledgements</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<ul>
-<li><strong>Links</strong>:
-<ul>
-<li><a href="https://github.com/saforem2/l2hmc-qcd"> Link to github</a></li>
-<li><a href="mailto:foremans@anl.gov"> reach out!</a></li>
-</ul></li>
-<li><strong>References</strong>:
-<ul>
-<li><a href="https://saforem2.github.io/lattice23/">Link to slides</a>
-<ul>
-<li><a href="https://github.com/saforem2/lattice23"> link to github with slides</a></li>
-</ul></li>
-<li> <span class="citation" data-cites="Foreman:2021ljl Foreman:2021rhs Foreman:2021ixr">(<a href="#/references-1" role="doc-biblioref" onclick="">Foreman et al. 2022</a>; <a href="#/references-1" role="doc-biblioref" onclick="">Foreman, Jin, and Osborn 2022</a>, <a href="#/references-1" role="doc-biblioref" onclick="">2021</a>)</span></li>
-<li> <span class="citation" data-cites="Boyda:2022nmh Shanahan:2022ifi">(<a href="#/references-1" role="doc-biblioref" onclick="">Boyda et al. 2022</a>; <a href="#/references-1" role="doc-biblioref" onclick="">Shanahan et al. 2022</a>)</span></li>
-</ul></li>
-</ul>
-</div><div class="column" style="width:50%;">
-<ul>
-<li>Huge thank you to:
-<ul>
-<li>Yannick Meurice</li>
-<li>Norman Christ</li>
-<li>Akio Tomiya</li>
-<li>Nobuyuki Matsumoto</li>
-<li>Richard Brower</li>
-<li>Luchang Jin</li>
-<li>Chulwoo Jung</li>
-<li>Peter Boyle</li>
-<li>Taku Izubuchi</li>
-<li>Denis Boyda</li>
-<li>Dan Hackett</li>
-<li>ECP-CSD group</li>
-<li><span class="red-text"><strong>ALCF Staff + Datascience Group</strong></span></li>
-</ul></li>
-</ul>
-</div>
-</div>
-</section>
-<section id="sec-references" class="slide level2 center">
-<h2></h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<h3 id="links">Links</h3>
-<ul>
-<li><p><a href="https://github.com/saforem2/l2hmc-qcd"> <code>saforem2/l2hmc-qcd</code></a></p></li>
-<li><p><a href="https://saforem2.github.io/lattice23">📊 slides</a> (Github: <a href="https://github.com/saforem2/lattice23"> <code>saforem2/lattice23</code></a>)</p></li>
-</ul>
-</div><div class="column" style="width:50%;">
-<h3 id="references">References</h3>
-<ul>
-<li><a href="https://saforem2.github.io/grid-worms-animation/">Title Slide Background (worms) animation</a>
-<ul>
-<li>Github: <a href="https://github.com/saforem2/grid-worms-animation"> <code>saforem2/grid-worms-animation</code></a></li>
-</ul></li>
-<li><a href="https://chi-feng.github.io/mcmc-demo/app.html">Link to HMC demo</a></li>
-</ul>
-</div>
-</div>
-</section>
-<section id="references-1" class="slide level2 smaller scrollable" style="line-height:1.2em;">
+<section id="references" class="slide level2 smaller scrollable" style="line-height:1.2em;">
 <h2>References</h2>
-<p>(I don’t know why this is broken 🤷🏻‍♂️ )</p>
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-Boyda:2022nmh" class="csl-entry" role="listitem">
-Boyda, Denis et al. 2022. <span>“<span class="nocase">Applications of Machine Learning to Lattice Quantum Field Theory</span>.”</span> In <em><span>Snowmass 2021</span></em>. <a href="https://arxiv.org/abs/2202.05838">https://arxiv.org/abs/2202.05838</a>.
-</div>
-<div id="ref-Foreman:2021ljl" class="csl-entry" role="listitem">
-Foreman, Sam, Taku Izubuchi, Luchang Jin, Xiao-Yong Jin, James C. Osborn, and Akio Tomiya. 2022. <span>“<span class="nocase">HMC with Normalizing Flows</span>.”</span> <em>PoS</em> LATTICE2021: 073. <a href="https://doi.org/10.22323/1.396.0073">https://doi.org/10.22323/1.396.0073</a>.
-</div>
-<div id="ref-Foreman:2021ixr" class="csl-entry" role="listitem">
-Foreman, Sam, Xiao-Yong Jin, and James C. Osborn. 2021. <span>“<span>Deep Learning Hamiltonian Monte Carlo</span>.”</span> In <em><span class="nocase">9th International Conference on Learning Representations</span></em>. <a href="https://arxiv.org/abs/2105.03418">https://arxiv.org/abs/2105.03418</a>.
-</div>
-<div id="ref-Foreman:2021rhs" class="csl-entry" role="listitem">
-———. 2022. <span>“<span class="nocase">LeapfrogLayers: A Trainable Framework for Effective Topological Sampling</span>.”</span> <em>PoS</em> LATTICE2021 (May): 508. <a href="https://doi.org/10.22323/1.396.0508">https://doi.org/10.22323/1.396.0508</a>.
-</div>
-<div id="ref-Shanahan:2022ifi" class="csl-entry" role="listitem">
-Shanahan, Phiala et al. 2022. <span>“<span>Snowmass 2021 Computational Frontier CompF03 Topical Group Report: Machine Learning</span>,”</span> September. <a href="https://arxiv.org/abs/2209.07559">https://arxiv.org/abs/2209.07559</a>.
-</div>
+<div id="refs" role="list">
+
 </div>
 </section></section>
 <section>
@@ -1378,7 +968,7 @@ Shanahan, Phiala et al. 2022. <span>“<span>Snowmass 2021 Computational Frontie
 <section id="integrated-autocorrelation-time" class="slide level2 centeredslide center">
 <h2>Integrated Autocorrelation Time</h2>
 
-<img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/tint1.svg" style="width:100.0%" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;15: Plot of the integrated autocorrelation time for both the trained model (colored) and HMC (greyscale).</p></section>
+<img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/tint1.svg" style="width:100.0%" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;10: Plot of the integrated autocorrelation time for both the trained model (colored) and HMC (greyscale).</p></section>
 <section id="comparison" class="slide level2 center">
 <h2>Comparison</h2>
 <div id="fig-comparison" class="quarto-layout-panel">
@@ -1401,7 +991,7 @@ Shanahan, Phiala et al. 2022. <span>“<span>Snowmass 2021 Computational Frontie
 </div>
 </div>
 </div>
-<p></p><figcaption>Figure&nbsp;16: Comparison of <span class="math inline">\langle \delta Q\rangle = \frac{1}{N}\sum_{i=k}^{N} \delta Q_{i}</span> for the trained model <a href="#/comparison">Figure&nbsp;16 (a)</a> vs.&nbsp;HMC <a href="#/comparison">Figure&nbsp;16 (b)</a></figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;11: Comparison of <span class="math inline">\langle \delta Q\rangle = \frac{1}{N}\sum_{i=k}^{N} \delta Q_{i}</span> for the trained model <a href="#/comparison">Figure&nbsp;11 (a)</a> vs.&nbsp;HMC <a href="#/comparison">Figure&nbsp;11 (b)</a></figcaption><p></p>
 </figure>
 </div>
 </section>
@@ -1415,7 +1005,7 @@ Shanahan, Phiala et al. 2022. <span>“<span>Snowmass 2021 Computational Frontie
 </div>
 </div>
 
-<img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/plaqsf_vs_lf_step1.svg" style="width:100.0%" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;17: Plot showing how <strong>average plaquette</strong>, <span class="math inline">\left\langle x_{P}\right\rangle</span> varies over a single trajectory for models trained at different <span class="math inline">\beta</span>, with varying trajectory lengths <span class="math inline">N_{\mathrm{LF}}</span></p></section>
+<img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/plaqsf_vs_lf_step1.svg" style="width:100.0%" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;12: Plot showing how <strong>average plaquette</strong>, <span class="math inline">\left\langle x_{P}\right\rangle</span> varies over a single trajectory for models trained at different <span class="math inline">\beta</span>, with varying trajectory lengths <span class="math inline">N_{\mathrm{LF}}</span></p></section>
 <section id="loss-function" class="slide level2 center">
 <h2>Loss Function</h2>
 <ul>
@@ -1436,7 +1026,7 @@ A(\xi^{\ast}|\xi) = \mathrm{min}\left( 1,
 \end{equation*}</span></p></li>
 </ul></li>
 </ul>
-<aside><ol class="aside-footnotes"><li id="fn9"><p>Where <span class="math inline">\xi^{\ast}</span> is the <em>proposed</em> configuration (prior to Accept / Reject)</p></li><li id="fn10"><p>And <span class="math inline">\left|\frac{\partial \xi^{\ast}}{\partial \xi^{T}}\right|</span> is the Jacobian of the transformation from <span class="math inline">\xi \rightarrow \xi^{\ast}</span></p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn2"><p>Where <span class="math inline">\xi^{\ast}</span> is the <em>proposed</em> configuration (prior to Accept / Reject)</p></li><li id="fn3"><p>And <span class="math inline">\left|\frac{\partial \xi^{\ast}}{\partial \xi^{T}}\right|</span> is the Jacobian of the transformation from <span class="math inline">\xi \rightarrow \xi^{\ast}</span></p></li></ol></aside></section>
 
 <section id="networks-2d-u1" class="slide level2 center" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Networks 2D <span class="math inline">U(1)</span></h2>
@@ -1464,7 +1054,7 @@ A(\xi^{\ast}|\xi) = \mathrm{min}\left( 1,
 <li><span style="color:#1A8FFF;">backward</span> <span class="math inline">(d = \textcolor{#1A8FFF}{-})</span>:</li>
 </ul>
 <p><span class="math display">\Gamma^{\textcolor{#1A8FFF}{-}}: (x, v) \rightarrow v' := e^{-\frac{\varepsilon}{2} s_{v}} \left\{v + \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{v}} + t_{v} \right]\right\}</span></p>
-<aside><ol class="aside-footnotes"><li id="fn11"><p><span style="font-size:0.8em;">Note that <span class="math inline">\left(\Gamma^{+}\right)^{-1} = \Gamma^{-}</span>, i.e.&nbsp;<span class="math inline">\Gamma^{+}\left[\Gamma^{-}(x, v)\right] = \Gamma^{-}\left[\Gamma^{+}(x, v)\right] = (x, v)</span></span></p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn4"><p><span style="font-size:0.8em;">Note that <span class="math inline">\left(\Gamma^{+}\right)^{-1} = \Gamma^{-}</span>, i.e.&nbsp;<span class="math inline">\Gamma^{+}\left[\Gamma^{-}(x, v)\right] = \Gamma^{-}\left[\Gamma^{+}(x, v)\right] = (x, v)</span></span></p></li></ol></aside></section>
 
 <section id="x-update" class="slide level2 center">
 <h2><span class="math inline">x</span>-Update</h2>
@@ -1530,7 +1120,7 @@ A(\xi^{\ast}|\xi) = \mathrm{min}\left( 1,
 <figure>
 <iframe data-src="https://nbviewer.org/github/saforem2/l2hmc-qcd/blob/SU3/src/l2hmc/notebooks/l2hmc-2dU1.ipynb" width="100%" height="650" title="l2hmc-qcd">
 </iframe>
-<figcaption>Figure&nbsp;18: Jupyter Notebook</figcaption>
+<figcaption>Figure&nbsp;13: Jupyter Notebook</figcaption>
 </figure>
 </div>
 </section>
@@ -1578,13 +1168,12 @@ A(\xi^{\ast}|\xi) = \mathrm{min}\left( 1,
 </ul></li>
 </ul>
 
-<img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/static/continuum.svg" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;19: Increasing the physical resolution (<span class="math inline">a \rightarrow 0</span>) allows us to make predictions about numerical values of physical quantities in the continuum limit.</p></section></section>
+<img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/static/continuum.svg" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;14: Increasing the physical resolution (<span class="math inline">a \rightarrow 0</span>) allows us to make predictions about numerical values of physical quantities in the continuum limit.</p></section></section>
 <section id="extra" class="title-slide slide level1 center">
 <h1>Extra</h1>
-<p><span class="preview-image" style="text-align:center; margin-left:auto; margin-right: auto;"><img data-src="./assets/thumbnail.png"></span></p>
 
-<p><img src="https://raw.githubusercontent.com/saforem2/anl-job-talk/main/docs/assets/anl.svg" class="slide-logo"></p>
-<div class="footer footer-default">
+
+<img data-src="./assets/thumbnail.png" class="r-stretch"><div class="footer footer-default">
 
 </div>
 </section>

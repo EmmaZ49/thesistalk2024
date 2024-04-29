@@ -15,7 +15,7 @@ format:
     preview-links: true
     controls-tutorial: true
     controls: false
-    logo: "https://raw.githubusercontent.com/saforem2/anl-job-talk/main/docs/assets/anl.svg"
+    #logo: "assets/HMC GBW RGB 150dpi.jpg"
     history: false
     theme: [css/dark.scss]
     callot-style: simple
@@ -36,19 +36,18 @@ format:
     output-file: "README.md"
 ---
 
-# {.title-slide .centeredslide background-iframe="https://saforem2.github.io/grid-worms-animation/" loading="lazy"}
+# {.centeredslide background-iframe="https://saforem2.github.io/grid-worms-animation/" loading="lazy"}
 
 ::: {style="background-color: rgba(22,22,22,0.75); border-radius: 10px; text-align:center; padding: 0px; padding-left: 1.5em; padding-right: 1.5em; max-width: min-content; min-width: max-content; margin-left: auto; margin-right: auto; padding-top: 0.2em; padding-bottom: 0.2em; line-height: 1.5em!important;"}
-<span style="color:#939393; font-size:1.5em; font-weight: bold;">MLMC: Machine Learning Monte Carlo</span>  
-<span style="color:#777777; font-size:1.2em; font-weight: bold;">for Lattice Gauge Theory</span>  
+<span style="color:#939393; font-size:1.5em; font-weight: bold;">Probing the Ising Model’s Thermodynamics <br> through Restricted Boltzmann Machines</span>   
 [<br>&nbsp;]{style="padding-bottom: 0.5rem;"}  
-[{{< fa solid home >}}](https://samforeman.me) Sam Foreman  
-[Xiao-Yong Jin, James C. Osborn]{.dim-text style="font-size:0.8em;"}  
-[[[{{< fa brands github >}} `saforem2/`](https://github.com/saforem2/)]{style="border-bottom: 0.5px solid #00ccff;"}`{`[[`lattice23`](https://github.com/saforem2/lattice23)]{style="border-bottom: 0.5px solid #00ccff;"}, [[`l2hmc-qcd`](https://github.com/saforem2/l2hmc-qcd)]{style="border-bottom: 0.5px solid #00ccff;"}`}`]{style="font-size:0.8em;"}
+ Emma Zhang  
+[Advisor: Prof. Weiqing Gu]{.dim-text style="font-size:0.8em;"}  
+[Reader: Prof. Daniel Tamayo]{.dim-text style="font-size:0.8em;"}  
 :::
 
 ::: footer
-[2023-07-31 @ [Lattice 2023](https://indico.fnal.gov/event/57249/contributions/271305/)]{.dim-text style="text-align:left;'}
+[2024-04-29 @ Senior Thesis Presentation]{.dim-text style="text-align:left;'}
 :::
 
 # Overview
@@ -64,365 +63,181 @@ format:
 4. [Extras](#sec-extras)
 
 
-# Markov Chain Monte Carlo (MCMC) {.centeredslide}
+# Physics and Machine Learning: A Thought Experiment
 
 :::: {.columns}
+
+::: {.column width="50%"}
+
+:::{.callout-note title="Question" style="text-align:left;!important"}
+How can physics and machine learning be connected?
+:::
+
+- Every minute, an imaginary demon can either:
+    - Press the button $\Rightarrow$ Output 1
+    - Not press the button $\Rightarrow$ Output 0
+
+- The outputs after 10 minutes:
+$$\{0,1,1,0,0,\dots\}$$
+
+:::
+
+
+::: {.column width="45%"} 
+- After 10 $\times$ 10 minutes:
+
+:::{.fragment}
+![](https://raw.githubusercontent.com/EmmaZ49/thesistalk2024/main/assets/cat.png){.absolute top=150 right=50 width="450" height="450"}
+:::
+:::
+
+::::
+
+# The Ising Model
+
+::::{.columns}
 
 ::: {.column width="50%"}
 
 ::: {.callout-note title="Goal" style="text-align:left;!important"}
-Generate **independent** samples $\{x_{i}\}$, such that[^notation]
-$$\{x_{i}\} \sim p(x) \propto e^{-S(x)}$$
-where $S(x)$ is the _action_ (or potential energy)
+A simple but realistic model that captures the _magnetic_ behavior of a system
 :::
 
-- Want to calculate observables $\mathcal{O}$:  
-  $\left\langle \mathcal{O}\right\rangle \propto \int \left[\mathcal{D}x\right]\hspace{4pt} {\mathcal{O}(x)\, p(x)}$
-
+- Spins, $s$, occupy a lattice of $N$ sites
+- $s_i$ is the **spin** at site $i$:
+    - spin up: $s_i = +1$
+    - spin down: $s_i = -1$
+- A **spin configuration** $\{s_i\}$ is a specific assignment of spins to each of the $N$ sites, e.g. $\{s_1=-1, s_2 = +1, \dots, s_N = +1\}$
 :::
 
-::: {.column width="49%"}
-![](https://raw.githubusercontent.com/saforem2/deep-fridays/main/assets/normal_distribution.dark.svg)
+::: {.column width="45%"}
+
+::: {#fig-ising_lattice}
+![](https://web.stanford.edu/~peastman/statmech/_images/ising_model.svg)
+
+An example of an Ising model configuration
+:::
+
 :::
 
 ::::
 
-If these were <span style="color:#00CCFF;">independent</span>, we could approximate:
-  $\left\langle\mathcal{O}\right\rangle \simeq \frac{1}{N}\sum^{N}_{n=1}\mathcal{O}(x_{n})$  
-  $$\sigma_{\mathcal{O}}^{2} = \frac{1}{N}\mathrm{Var}{\left[\mathcal{O} (x)
-  \right]}\Longrightarrow \sigma_{\mathcal{O}} \propto \frac{1}{\sqrt{N}}$$
+# The Ising Hamiltonian {.centeredslide}
 
-[^notation]: Here, $\sim$ means "is distributed according to"
 
-::: footer
-[{{< fa brands github >}} `saforem2/lattice23`](https://saforem2.github.io/lattice23)
+
+- [**Question**]{.green-text}: How does the Ising model capture magnetic behaviors?
+- Different spin configurations $\Rightarrow$ different energies
+
+
+::: {.callout-tip title="The Hamiltonian" style="display:inline!important;"}
+  $H(\{s_i\})$ quantifies the [energy]{.green-text} of the system with a specific spin configuration $\{s_i\}$
 :::
 
-# Markov Chain Monte Carlo (MCMC) {.centeredslide}
+- Neighboring spins $s_i$ and $s_j$ interact with **interaction strength** $J_{ij}$[^neg]
+$$H(\{s_i\}) = -\sum_{ij}J_{ij} s_{i}s_{j}$$
+
+
+[^neg]: Negative sign ensures the configuration that minimizes the energy is preferred
+
+
+# Phase Transitions {.centeredslide}
+
+
+::: {.callout-note title="Phase Transitions" style="text-align:left;!important"}
+**Phase transitions** occur when the system undergoes a sudden change in its macroscopic properties as a function of _temperature_
+:::
+
+{{< video  https://vimeo.com/940520368 width="500" height="400" >}}
+
+
+# Phase Transitions {.centeredslide}
 
 :::: {.columns}
 
 ::: {.column width="50%"}
+
+
+- Magnetization:
+$$m = \frac{1}{N}\sum_{i=1}^N s_i$$
+
+- Ising model phase transition occurs between:
+  - Ferromagnetic phase: $m\neq 0$
+  - Paramagnetic phase; $m=0$
+- $T_c\approx 2.269 J/k_B$
+:::
+
+::: {.column width="49%"}
+::: {#fig-mag}
+![](https://github.com/EmmaZ49/thesistalk2024/raw/main/assets/pre_magnetization_plot2.svg)
+
+Mean magnetization per spin as a function of temperature for 2D Ising models of sizes $8\times 8$, $16\times 16$, and $32\times 32$
+:::
+:::
+
+::::
+
+# Neural Networks for Babies {.centeredslide}
+
+![](https://raw.githubusercontent.com/EmmaZ49/Thesis-Talk-Oct2023/main/neuron.svg)
+
+
+
+
+# Neural Networks for Babies {.centeredslide}
+
+![](https://raw.githubusercontent.com/EmmaZ49/Thesis-Talk-Oct2023/main/Neural_network.svg)
+
+# Restricted Boltzmann Machines
+
+::::{.columns}
+:::{.column width="50%"}
 
 ::: {.callout-note title="Goal" style="text-align:left;!important"}
-Generate **independent** samples $\{x_{i}\}$, such that[^notation]
-$$\{x_{i}\} \sim p(x) \propto e^{-S(x)}$$
-where $S(x)$ is the _action_ (or potential energy)
+Learn the probability distribution $P(\{s_i\})$ over a set of binary spins $\{s_i\}$
+:::
+- **Restricted Boltzmann Machines (RBMs)**: two-layered neural networks with no intra-layer connection
+- The interaction between visible units [$\{s_i\}$]{.green-text} and hidden units [$\{h_j\}$]{.blue-text} is
+    - [**note:** $b_j, w_{ij}, c_i$ are parameters]{.dim-text style="font-size:0.8em;"}
 :::
 
-- Want to calculate observables $\mathcal{O}$:  
-  $\left\langle \mathcal{O}\right\rangle \propto \int \left[\mathcal{D}x\right]\hspace{4pt} {\mathcal{O}(x)\, p(x)}$
-
+:::{.column width="45%"}
+![](https://raw.githubusercontent.com/EmmaZ49/Thesis-Talk-Oct2023/main/Restricted_Boltzmann_machine.svg)
 :::
-
-::: {.column width="49%"}
-![](https://raw.githubusercontent.com/saforem2/deep-fridays/main/assets/normal_distribution.dark.svg)
-:::
-
+$$E = \sum_i b_j h_j + \sum_{ij} \textcolor{green}{\{s_i\}} w_{ij} \textcolor{Skyblue}{\{h_j\}} + \sum_i c_i \textcolor{green}{\{s_i\}}$$
 ::::
 
-Instead, nearby configs are [correlated]{.red-text}, and we incur a factor of
-$\textcolor{#FF5252}{\tau^{\mathcal{O}}_{\mathrm{int}}}$:
-  $$\sigma_{\mathcal{O}}^{2} =
-  \frac{\textcolor{#FF5252}{\tau^{\mathcal{O}}_{\mathrm{int}}}}{N}\mathrm{Var}{\left[\mathcal{O}
-  (x) \right]}$$
+# Method Outline  {.centeredslide auto-animate="true"}
 
-[^notation]: Here, $\sim$ means "is distributed according to"
-
-::: footer
-[{{< fa brands github >}} `saforem2/lattice23`](https://github.com/saforem2/lattice23)
+::: {.callout-note title="Data Generation" style="text-align:left;"}
+Generate 2D Ising model data at different temperatures using [Monte Carlo simulations]{.blue-text}
 :::
 
-# Hamiltonian Monte Carlo (HMC) {.centeredslide}
+# Method Outline  {.centeredslide auto-animate="true"}
 
-- Want to (sequentially) construct a chain of states:
-  $$x_{0} \rightarrow x_{1} \rightarrow x_{i} \rightarrow \cdots \rightarrow x_{N}\hspace{10pt}$$
-
-  such that, as $N \rightarrow \infty$:
-  $$\left\{x_{i}, x_{i+1}, x_{i+2}, \cdots, x_{N} \right\} \xrightarrow[]{N\rightarrow\infty} p(x)
-  \propto e^{-S(x)}$$
-
-::: {.callout-tip title="Trick" style="display:inline!important;"}
-  - Introduce [fictitious]{.green-text} momentum $v \sim \mathcal{N}(0, \mathbb{1})$
-    - Normally distributed **independent** of $x$, i.e.
-  $$\begin{align*}
-    p(x, v) &\textcolor{#02b875}{=} p(x)\,p(v) \propto e^{-S{(x)}} e^{-\frac{1}{2} v^{T}v}
-   	= e^{-\left[S(x) + \frac{1}{2} v^{T}{v}\right]}
-   	\textcolor{#02b875}{=} e^{-H(x, v)}
-  \end{align*}$$
+::: {.callout-note title="Data Generation" style="text-align:left;"}
+Generate 2D Ising model data at different temperatures using [Monte Carlo simulations]{.blue-text}
 :::
 
-## Hamiltonian Monte Carlo (HMC) {.centeredslide}
-
-:::: {.columns}
-
-::: {.column width="55%"}
-
-- [**Idea**]{.green-text}: Evolve the $(\dot{x}, \dot{v})$ system to get new states $\{x_{i}\}$❗
-
-- Write the **joint distribution** $p(x, v)$:
-  $$
-  p(x, v) \propto e^{-S[x]} e^{-\frac{1}{2}v^{T} v} = e^{-H(x, v)}
-  $$
+::: {.callout-tip title="Neural Network Training" style="text-align:left;"}
+Train RBMs on Ising model data and study the [learned patterns]{.green-text}
 :::
 
-::: {.column width="45%"}
+# Method Outline  {.centeredslide auto-animate="true"}
 
-::: {.callout-tip title="Hamiltonian Dynamics"}
-$H = S[x] + \frac{1}{2} v^{T} v \Longrightarrow$
-$$\dot{x} = +\partial_{v} H,
-\,\,\dot{v} = -\partial_{x} H$$
+::: {.callout-note title="Data Generation" style="text-align:left;"}
+Generate 2D Ising model data at different temperatures using [Monte Carlo simulations]{.blue-text}
 :::
 
+::: {.callout-tip title="Neural Network Training" style="text-align:left;"}
+Train RBMs on Ising model data and study the [learned patterns]{.green-text}
 :::
 
-::::
-
-::: {#fig-hmc-traj}
-
-![](https://raw.githubusercontent.com/saforem2/deep-fridays/main/assets/hmc1.svg){.r-stretch}
-
-Overview of HMC algorithm
+::: {.callout-important title="RBM Data Generation" style="text-align:left;"}
+Generate _new_ Ising configurations using RBM. How [good]{.red-text} are these new configurations?
 :::
 
-## Leapfrog Integrator (HMC) {#sec-leapfrog .centeredslide}
-
-:::: {.columns style="text-align:center; font-size: 0.9em;" height="100%"}
-
-::: {.column width="48%"}
-
-::: {.callout-tip title="Hamiltonian Dynamics"}
-$\left(\dot{x}, \dot{v}\right) = \left(\partial_{v} H, -\partial_{x} H\right)$
-:::
-
-::: {.callout-note title="Leapfrog Step"}
-`input` $\,\left(x, v\right) \rightarrow \left(x', v'\right)\,$ `output`
-
-$$\begin{align*}
-\tilde{v} &:= \textcolor{#F06292}{\Gamma}(x, v)\hspace{2.2pt} = v - \frac{\varepsilon}{2} \partial_{x} S(x) \\
-x' &:= \textcolor{#FD971F}{\Lambda}(x, \tilde{v}) \, =  x + \varepsilon \, \tilde{v} \\
-v' &:= \textcolor{#F06292}{\Gamma}(x', \tilde{v}) = \tilde{v} - \frac{\varepsilon}{2} \partial_{x} S(x')
-\end{align*}$$
-
-:::
-
-::: {.callout-warning title="Warning!"}
-- Resample $v_{0} \sim \mathcal{N}(0, \mathbb{1})$  
-at the [beginning]{.yellow-text} of each trajectory
-:::
-
-::: {style="font-size:0.8em; margin-left:13%;"}
-[**Note**: $\partial_{x} S(x)$ is the _force_]{.dim-text}
-:::
-
-:::
-
-::: {.column width="49%" style="text-align:left; margin-left:2%;"}
-
-![](./assets/hmc1/hmc-update-light.svg){width=60%}
-
-:::
-
-::::
-
-## HMC Update
-
-:::: {.columns}
-
-::: {.column width="65%"}
-- We build a trajectory of $N_{\mathrm{LF}}$ **leapfrog steps**[^v0]
-  $$\begin{equation*}
-  (x_{0}, v_{0})%
-  \rightarrow (x_{1}, v_{1})\rightarrow \cdots%
-  \rightarrow (x', v')
-  \end{equation*}$$
-
-- And propose $x'$ as the next state in our chain
-
-$$\begin{align*}
-  \textcolor{#F06292}{\Gamma}: (x, v) \textcolor{#F06292}{\rightarrow} v' &:= v - \frac{\varepsilon}{2} \partial_{x} S(x) \\
-  \textcolor{#FD971F}{\Lambda}: (x, v) \textcolor{#FD971F}{\rightarrow} x' &:= x + \varepsilon v
-\end{align*}$$
-
-- We then accept / reject $x'$ using Metropolis-Hastings criteria,  
-  $A(x'|x) = \min\left\{1, \frac{p(x')}{p(x)}\left|\frac{\partial x'}{\partial x}\right|\right\}$
-
-:::
-
-::: {.column width="30%"}
-
-![](./assets/hmc1/hmc-update-light.svg)
-
-:::
-
-::::
-
-[^v0]: We **always** start by resampling the momentum, $v_{0} \sim
-\mathcal{N}(0, \mathbb{1})$
-
-## HMC Demo {.centeredslide}
-
-::: {#fig-hmc-demo}
-
-<iframe data-src="https://chi-feng.github.io/mcmc-demo/app.html" width="90%" height="500" title="l2hmc-qcd"></iframe>
-
-HMC Demo
-:::
-
-# Issues with HMC {#sec-issues style="font-size:0.9em;"}
-
-- What do we want in a good sampler?
-  - **Fast mixing** (small autocorrelations)
-  - **Fast burn-in** (quick convergence)
-
-- Problems with HMC:
-  - Energy levels selected randomly $\rightarrow$ **slow mixing**
-  - Cannot easily traverse low-density zones $\rightarrow$ **slow convergence**
-
-::: {#fig-hmc-issues layout-ncol=2}
-![HMC Samples with $\varepsilon=0.25$](https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/hmc_traj_eps025.svg)
-
-![HMC Samples with $\varepsilon=0.5$](https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/hmc_traj_eps05.svg)
-
-HMC Samples generated with varying step sizes $\varepsilon$
-:::
-
-# Topological Freezing {.centeredslide}
-
-:::: {.columns}
-
-::: {.column width="45%"}
-
-::: {style="text-align:left; font-size: 0.9em;"}
-**Topological Charge**:
-$$Q = \frac{1}{2\pi}\sum_{P}\left\lfloor x_{P}\right\rfloor  \in \mathbb{Z}$$
-:::
-
-[**note:** $\left\lfloor x_{P} \right\rfloor = x_{P} - 2\pi
-\left\lfloor\frac{x_{P} + \pi}{2\pi}\right\rfloor$]{.dim-text style="font-size:0.8em;"}
-
-::: {.callout-important title="Critical Slowing Down" style="text-align:left;"}
-- $Q$ gets stuck!
-    - as $\beta\longrightarrow \infty$:
-        - $Q \longrightarrow \text{const.}$
-        - $\delta Q = \left(Q^{\ast} - Q\right) \rightarrow 0 \textcolor{#FF5252}{\Longrightarrow}$
-    - \# configs required to estimate errors  
-    **grows exponentially**:
-    [$\tau_{\mathrm{int}}^{Q} \longrightarrow \infty$]{.red-text}
-:::
-
-:::
-
-::: {.column width="45%"}
-
-![Note $\delta Q \rightarrow 0$ at increasing
-$\beta$](https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/critical_slowing_down.svg){width="80%"}
-
-:::
-
-::::
-
-# Can we do better? {#sec-can-we-do-better}
-
-:::: {.columns}
-
-::: {.column width="50%"}
-
-- Introduce two (**invertible NNs**) `vNet` and `xNet`[^l2hmc]:
-  - [`vNet: ` $(x, F) \longrightarrow \left(s_{v},\, t_{v},\, q_{v}\right)$]{style="font-size:0.9em;"}  
-  - [`xNet: ` $(x, v) \longrightarrow \left(s_{x},\, t_{x},\, q_{x}\right)$]{style="font-size:0.9em;"}
-
-&nbsp;  
-
-- Use these $(s, t, q)$ in the _generalized_ MD update:
-  - [[$\Gamma_{\theta}^{\pm}$]{.pink-text} $: ({x}, \textcolor{#07B875}{v}) \xrightarrow[]{\textcolor{#F06292}{s_{v}, t_{v}, q_{v}}} (x, \textcolor{#07B875}{v'})$]{}
-  - [[$\Lambda_{\theta}^{\pm}$]{.orange-text} $: (\textcolor{#AE81FF}{x}, v) \xrightarrow[]{\textcolor{#FD971F}{s_{x}, t_{x}, q_{x}}} (\textcolor{#AE81FF}{x'}, v)$]{}
-
-:::
-
-::: {.column width="48%"}
-
-::: {#fig-mdupdate}
-
-![](./assets/leapfrog-layer-2D-U1-vertical.light.svg){style="width:85%; text-align:center;"}
-
-Generalized MD update where [$\Lambda_{\theta}^{\pm}$]{.orange-text},
-[$\Gamma_{\theta}^{\pm}$]{.pink-text} are **invertible NNs**
-
-:::
-
-:::
-
-::::
-
-[^l2hmc]: [L2HMC: ](https://github.com/saforem2/l2hmc-qcd) {{< fa solid book >}}
-[@Foreman:2021ixr; @Foreman:2021rhs]
-
-# L2HMC: Generalizing the MD Update {#sec-l2hmc .centeredslide}
-
-:::: {.columns}
-
-::: {.column width="50%"}
-
-::: {.callout title="L2HMC Update" style="font-size: 0.9em;"}
-
-- Introduce $d \sim \mathcal{U}(\pm)$ to determine the direction of our update
-
-  1. [$\textcolor{#07B875}{v'} =$ [$\Gamma^{\pm}$]{.pink-text}$({x}, \textcolor{#07B875}{v})$]{} [$\hspace{46pt}$ update $v$]{.dim-text style="font-size:0.9em;"}
-
-  2. [$\textcolor{#AE81FF}{x'} =$ [$x_{B}$]{.blue-text}$\,+\,$[$\Lambda^{\pm}$]{.orange-text}$($[$x_{A}$]{.red-text}$, {v'})$]{} [$\hspace{10pt}$ update first **half**: $x_{A}$]{.dim-text style="font-size:0.9em;"}
-
-  3. [$\textcolor{#AE81FF}{x''} =$ [$x'_{A}$]{.red-text}$\,+\,$[$\Lambda^{\pm}$]{.orange-text}$($[$x'_{B}$]{.blue-text}$, {v'})$]{} [$\hspace{8pt}$ update other half: $x_{B}$]{.dim-text style="font-size:0.9em;"}
-
-  4. [$\textcolor{#07B875}{v''} =$ [$\Gamma^{\pm}$]{.pink-text}$({x''}, \textcolor{#07B875}{v'})$]{} [$\hspace{36pt}$ update $v$]{.dim-text style="font-size:0.9em;"}
-
-:::
-
-::: {.callout icon=false title="🎲 Re-Sampling" style="text-align:left; font-size: 0.7em; line-height:1em;"}
-
-- Resample both $v\sim \mathcal{N}(0, 1)$, and $d \sim \mathcal{U}(\pm)$ at the
-beginning of each trajectory
-  - To ensure ergodicity + reversibility, we split the [$x$]{.purple-text}
-  update into sequential (complementary) updates
-- Introduce directional variable $d \sim \mathcal{U}(\pm)$, resampled at the
-beginning of each trajectory:
-  - Note that $\left(\Gamma^{+}\right)^{-1} = \Gamma^{-}$, i.e.
-  $$\Gamma^{+}\left[\Gamma^{-}(x, v)\right] = \Gamma^{-}\left[\Gamma^{+}(x,
-  v)\right] = (x, v)$$
-
-:::
-
-:::
-
-::: {.column width="50%"}
-
-::: {#fig-mdupdate}
-
-![](./assets/leapfrog-layer-2D-U1-vertical.light.svg){style="width:85%; text-align:center;"}
-
-Generalized MD update with [$\Lambda_{\theta}^{\pm}$]{.orange-text}, [$\Gamma_{\theta}^{\pm}$]{.pink-text} **invertible NNs**
-:::
-
-:::
-
-::::
-
-## L2HMC: Leapfrog Layer {.centeredslide}
-
-:::: {.columns}
-
-::: {.column width="35%"}
-![](https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/drawio/update_steps.svg){.absolute  top="30" width="40%"}
-:::
-
-::: {.column width="65%"}
-![](https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/drawio/leapfrog_layer_dark2.svg){width="100%"}
-:::
-::::
-
-![](https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/drawio/network_functions.svg){.absolute top=440 width="100%"}
-
-## L2HMC Update {style="font-size: 0.775em;"}
+# Generating Ising Configurations {.centeredslide auto-animate="true"}
 
 :::: {.columns}
 
@@ -430,31 +245,22 @@ Generalized MD update with [$\Lambda_{\theta}^{\pm}$]{.orange-text}, [$\Gamma_{\
 
 ::: {.callout title="Algorithm"}
 
-1. `input`: [$x$]{.purple-text}
+1. `input`: Initial configuration [$\{s_i\}$]{.purple-text}
 
-    - Resample: $\textcolor{#07B875}{v} \sim \mathcal{N}(0, \mathbb{1})$; $\,\,{d\sim\mathcal{U}(\pm)}$
-    - Construct initial state:
-     $\textcolor{#939393}{\xi} =(\textcolor{#AE81FF}{x}, \textcolor{#07B875}{v}, {\pm})$
+2. `spin/cluster selection`: 
+    - [Metropolis]{style="color:#f8f8f8"}: Randomly select a _single_ spin
+    - [Wolff]{style="color:#f8f8f8"}: Randomly select a seed spin and form a _cluster_
 
-2. `forward`: Generate [proposal $\xi'$]{style="color:#f8f8f8"} by passing [initial $\xi$]{style="color:#939393"} through $N_{\mathrm{LF}}$ leapfrog layers  
-$$\textcolor{#939393} \xi \hspace{1pt}\xrightarrow[]{\tiny{\mathrm{LF} \text{ layer}}}\xi_{1} \longrightarrow\cdots \longrightarrow \xi_{N_{\mathrm{LF}}} = \textcolor{#f8f8f8}{\xi'} := (\textcolor{#AE81FF}{x''}, \textcolor{#07B875}{v''})$$
+3. `flip`:
+    - [Metropolis]{style="color:#f8f8f8"}: Calculate the energy difference $\textcolor{#07B875}{\Delta E}$.
+      - If $\textcolor{#07B875}{\Delta E} \leq 0$, flip
+      - If $\textcolor{#07B875}{\Delta E} >0$, flip with probability $e^{-\Delta E/kT}$
+    - [Wolff]{style="color:#f8f8f8"}: Add aligned neighboring spins to the cluster with probability $P=e^{-2J/kT}$. Flip the cluster.
 
-    - Accept / Reject:
-      $$\begin{equation*}
-      A({\textcolor{#f8f8f8}{\xi'}}|{\textcolor{#939393}{\xi}})=
-      \mathrm{min}\left\{1,
-      \frac{\pi(\textcolor{#f8f8f8}{\xi'})}{\pi(\textcolor{#939393}{\xi})} \left| \mathcal{J}\left(\textcolor{#f8f8f8}{\xi'},\textcolor{#939393}{\xi}\right)\right| \right\}
-      \end{equation*}$$
 
-5. `backward` (if training):  
-    - Evaluate the **loss function**[^loss] $\mathcal{L}\gets \mathcal{L}_{\theta}(\textcolor{#f8f8f8}{\xi'}, \textcolor{#939393}{\xi})$ and backprop
-6. `return`: $\textcolor{#AE81FF}{x}_{i+1}$  
-  Evaluate MH criteria $(1)$ and return accepted config, 
-  $$\textcolor{#AE81FF}{{x}_{i+1}}\gets
-  \begin{cases}
-  \textcolor{#f8f8f8}{\textcolor{#AE81FF}{x''}} \small{\text{ w/ prob }} A(\textcolor{#f8f8f8}{\xi''}|\textcolor{#939393}{\xi}) \hspace{26pt} ✅ \\
-  \textcolor{#939393}{\textcolor{#AE81FF}{x}} \hspace{5pt}\small{\text{ w/ prob }} 1 - A(\textcolor{#f8f8f8}{\xi''}|{\textcolor{#939393}{\xi}}) \hspace{10pt} 🚫
-  \end{cases}$$
+5. `iterate`: Repeat `spin/cluster selection` and `flip`
+6. `equilibrate`: Allow the system to equilibrate and start sampling
+7. `return`: return sampled equilibrated configurations [$\{s_i\}$]{.purple-text}
 
 :::
 
@@ -462,525 +268,201 @@ $$\textcolor{#939393} \xi \hspace{1pt}\xrightarrow[]{\tiny{\mathrm{LF} \text{ la
 
 ::: {.column width="50%"}
 
-::: {#fig-mdupdate}
-
-![](./assets/leapfrog-layer-2D-U1-vertical.light.svg){style="width:75%; text-align:center;"}
-
-**Leapfrog Layer** used in generalized MD update
+::: {.callout-tip title="Simulation technique" style="display:inline!important;"}
+[Monte Carlo]{.green-text} algorithms under periodic boundary conditions
 :::
+
+- **Metropolis algorithm**: Randomly flip a spin
+- _Critical slow down_: hard to flip spins near critical temperature!
+  - **Wolff Algorithm** - flip spin _clusters_
 
 :::
 
 ::::
 
-[^loss]: 
-    For simple $\mathbf{x} \in \mathbb{R}^{2}$ example, $\mathcal{L}_{\theta} =
-    A(\xi^{\ast}|\xi)\cdot \left(\mathbf{x}^{\ast} - \mathbf{x}\right)^{2}$
 
 
-# 4D $SU(3)$ Model {#sec-su3 .centeredslide style="font-size: 0.9em;"}
+
+
+# Generating Ising Configurations {.centeredslide auto-animate="true"}
+
+::: {.callout-tip title="Simulation technique" style="display:inline!important;"}
+[Monte Carlo]{.green-text} algorithms under periodic boundary conditions
+:::
+
+- Collected 10,000 Ising configurations for T = 0.25, 0.5, 0.75,…,4.0 (in $J/k_B$)
+
+
+::: {#fig-ising-exam}
+![](https://github.com/EmmaZ49/thesistalk2024/raw/main/assets/pre_ising_configs.svg)
+
+Samples of 64 $\times$ 64 Ising model configurations
+:::
+
+# Training RBMs {.centeredslide}
 
 :::: {.columns}
 
 ::: {.column width="50%"}
 
-::: {.callout-note title="Link Variables" style="text-align:left;"}
-
-- Write link variables $U_{\mu}(x) \in SU(3)$:
-
-  $$ \begin{align*} 
-  U_{\mu}(x) &= \mathrm{exp}\left[{i\, \textcolor{#AE81FF}{\omega^{k}_{\mu}(x)} \lambda^{k}}\right]\\
-  &= e^{i \textcolor{#AE81FF}{Q}},\quad \text{with} \quad \textcolor{#AE81FF}{Q} \in \mathfrak{su}(3)
-  \end{align*}$$ 
-
-  [where [$\omega^{k}_{\mu}(x)$]{.purple-text} $\in \mathbb{R}$, and $\lambda^{k}$ are
-  the generators of $SU(3)$]{style="font-size:0.9em;"}
-
+- Train RBM at each temperature with $n_h=900$ hidden units
+- Convergence within <200 epochs with stable loss reduction
+- Gaussian distribution of learned weights
 :::
 
-::: {.callout-tip title="Conjugate Momenta" style="text-align:left;"}
+::: {.column width="49%"}
+::: {#fig-weights}
+![](https://github.com/EmmaZ49/thesistalk2024/raw/main/assets/pre_pdf_filled_styled.svg)
 
-- Introduce [$P_{\mu}(x) = P^{k}_{\mu}(x) \lambda^{k}$]{.green-text} conjugate to
-[$\omega^{k}_{\mu}(x)$]{.purple-text}
-
+Probability density function (PDF) of learned weights $w_{ij}$ at temperatures below, near, and above $T_c$
+:::
 :::
 
-::: {.callout-important title="Wilson Action" style="text-align:left;"}
+::::
 
-$$ S_{G} = -\frac{\beta}{6} \sum
-\mathrm{Tr}\left[U_{\mu\nu}(x)
-+ U^{\dagger}_{\mu\nu}(x)\right] $$
 
-where $U_{\mu\nu}(x) = U_{\mu}(x) U_{\nu}(x+\hat{\mu})
-U^{\dagger}_{\mu}(x+\hat{\nu}) U^{\dagger}_{\nu}(x)$
+# Learned Patterns {.centeredslide}
 
+::: {.callout-tip title="Filters" style="display:inline!important;"}
+Filters $w_i^T$ extract patterns in Ising configurations
 :::
 
+Large fluctuation in patterns near $T_c$❗
+
+::: {#fig-filters}
+![](https://github.com/EmmaZ49/thesistalk2024/raw/main/assets/pre_sample_filters_temp_900.svg)
+
+Five sample filters at temperatures below, near, and above $T_c$
+:::
+
+# RBM-Generated Ising Configurations  {.centeredslide auto-animate="true"}
+
+::: {.callout-tip title="Goal" style="text-align:left;"}
+At each temperature, generate 1000 new Ising configurations using the corresponding RBM
+:::
+
+::: {#fig-filters}
+![](https://github.com/EmmaZ49/thesistalk2024/raw/main/assets/gen_vs_org.svg)
+
+Samples of original configurations (top) and generated configurations (bottom) at T=2.25
+:::
+
+
+# RBM-Generated Ising Configurations  {.centeredslide auto-animate="true"}
+
+::: {.callout-tip title="Goal" style="text-align:left;"}
+At each temperature, generate 1000 new Ising configurations using the corresponding RBM
+:::
+
+::: {#fig-filters}
+![](https://github.com/EmmaZ49/thesistalk2024/raw/main/assets/gen_vs_org.svg)
+
+Samples of original configurations (top) and generated configurations (bottom) at T=2.25
+:::
+
+::: {.callout-important title="Are these good?" style="text-align:left;"}
+How similar are these new configurations to the original ones?
+:::
+
+# Optimal Transport {.centeredslide auto-animate="true"}
+
+:::: {.columns}
+
+::: {.column width="55%"}
+
+- [**Idea**]{.green-text}: Quantitatively compare probability distributions
+
+- Given probability distributions $(x,\mu)$ on $\mathcal{X}$ and $(y,\nu)$ on $\mathcal{Y}$, find a map $\Pi(\mu, \nu)$ that minimizes the cost of the transport
+$$\inf_{\gamma \in \Pi(\mu, \nu)} \int_{\mathcal{X} \times \mathcal{Y}} c(x, y) , d\gamma(x, y)$$
 
 :::
 
 ::: {.column width="45%"}
 
-::: {#fig-4dlattice}
-
-![](./assets/u1lattice.dark.svg){width="90%"}
-
-Illustration of the lattice
-:::
-
 :::
 
 ::::
 
-## HMC: 4D $SU(3)$ {#sec-hmcsu3}
+::: {#fig-opt-trans}
 
-Hamiltonian: $H[P, U] = \frac{1}{2} P^{2} + S[U] \Longrightarrow$
+![](https://miro.medium.com/v2/resize:fit:1400/1*G9olSlGBDUeAsv6t5xGohQ.png){.r-stretch}
+
+Illustration of optimal transport (credit: Daniela Vogler and Gero Friesecke)
+:::
+
+
+# Optimal Transport {.centeredslide auto-animate="true"}
 
 :::: {.columns}
 
-::: {.column style="font-size:0.9em; text-align: center;"}
+::: {.column width="55%"}
 
-::: {.callout style="text-align:left;"}
+- [**Idea**]{.green-text}: Quantitatively compare probability distributions
 
-- [$U$ update]{style="border-bottom: 2px solid #AE81FF;"}:
-[$\frac{d\omega^{k}}{dt} = \frac{\partial H}{\partial P^{k}}$]{.purple-text style="font-size:1.5em;"}
-$$\frac{d\omega^{k}}{dt}\lambda^{k} = P^{k}\lambda^{k} \Longrightarrow \frac{dQ}{dt} = P$$
-$$\begin{align*}
-Q(\textcolor{#FFEE58}{\varepsilon}) &= Q(0) + \textcolor{#FFEE58}{\varepsilon} P(0)\Longrightarrow\\
--i\, \log U(\textcolor{#FFEE58}{\varepsilon}) &= -i\, \log U(0) + \textcolor{#FFEE58}{\varepsilon} P(0) \\
-U(\textcolor{#FFEE58}{\varepsilon}) &= e^{i\,\textcolor{#FFEE58}{\varepsilon} P(0)} U(0)\Longrightarrow \\
-&\hspace{1pt}\\
-\textcolor{#FD971F}{\Lambda}:\,\, U \longrightarrow U' &:= e^{i\varepsilon P'} U
-\end{align*}$$
+- Given probability distributions $(x,\mu)$ on $\mathcal{X}$ and $(y,\nu)$ on $\mathcal{Y}$, find a map $\Pi(\mu, \nu)$ that minimizes the cost of the transport
+$$\inf_{\gamma \in \Pi(\mu, \nu)} \int_{\mathcal{X} \times \mathcal{Y}} c(x, y) , d\gamma(x, y)$$
 
 :::
 
-::: aside
-[$\textcolor{#FFEE58}{\varepsilon}$ is the step size]{.dim-text style="font-size:0.8em;"}
+::: {.column width="45%"}
+
+::: {.callout-tip title="Wasserstein Distance"}
+For two probability measures $\mu$ and $\nu$ on the _same_ space $\mathcal{X}$:
+$$W(\mu, \nu) = \inf_{\gamma \in \Pi(\mu, \nu)} \int_{\mathcal{X} \times \mathcal{X}} d(x, y) , d\gamma(x, y)$$
 :::
 
-:::
-
-::: {.column style="font-size:0.9em; text-align: center;"}
-::: {.callout style="text-align:left;"}
-- [$P$ update]{style="border-bottom: 2px solid #07B875;"}:
-[$\frac{dP^{k}}{dt} = - \frac{\partial H}{\partial \omega^{k}}$]{.green-text style="font-size:1.5em;"} 
-$$\frac{dP^{k}}{dt} = - \frac{\partial H}{\partial \omega^{k}}
-= -\frac{\partial H}{\partial Q} = -\frac{dS}{dQ}\Longrightarrow$$
-$$\begin{align*}
-P(\textcolor{#FFEE58}{\varepsilon}) &= P(0) - \textcolor{#FFEE58}{\varepsilon} \left.\frac{dS}{dQ}\right|_{t=0} \\
-&= P(0) - \textcolor{#FFEE58}{\varepsilon} \,\textcolor{#E599F7}{F[U]} \\
-&\hspace{1pt}\\
-\textcolor{#F06292}{\Gamma}:\,\, P \longrightarrow P' &:= P - \frac{\varepsilon}{2} F[U]
-\end{align*}$$
-:::
-
-::: aside
-[$\textcolor{#E599F7}{F[U]}$ is the force term]{.dim-text style="font-size:0.8em;"}
-:::
 :::
 
 ::::
 
 
-## HMC: 4D $SU(3)$ {.centeredslide}
 
-:::: {.columns}
-
-::: {.column width="47%" style="text-align:left;"}
-
-- [Momentum Update]{style="border-bottom: 2px solid #F06292;"}:
-  $$\textcolor{#F06292}{\Gamma}: P \longrightarrow P' := P - \frac{\varepsilon}{2} F[U]$$
-
-- [Link Update]{style="border-bottom: 2px solid #FD971F;"}:
-  $$\textcolor{#FD971F}{\Lambda}: U \longrightarrow U' := e^{i\varepsilon P'} U\quad\quad$$
-
-- We maintain a batch of `Nb` lattices, all updated in parallel
-  - $U$`.dtype = complex128`
-  - $U$`.shape`  
-    [`= [Nb, 4, Nt, Nx, Ny, Nz, 3, 3]`]{style="font-size: 0.95em;"}
-
-:::
-
-::: {.column width="47%" style="text-align:right;"}
-
-![](./assets/hmc/hmc-update-light.svg){width=60%}
-
-:::
-
-::::
-
-# Networks 4D $SU(3)$ {#sec-su3networks .centeredslide auto-animate="true"}
-
-:::: {.columns}
-
-::: {.column width="54%" style="font-size:0.9em;"}
-
-&nbsp;<br>  
-
-&nbsp;<br>  
-
-[$U$]{.purple-text}-Network:
-
-  [`UNet: ` $(U, P) \longrightarrow \left(s_{U},\, t_{U},\, q_{U}\right)$]{style="font-size:0.9em;"}
+![](https://miro.medium.com/v2/resize:fit:1400/1*G9olSlGBDUeAsv6t5xGohQ.png){.r-stretch}
 
 
-&nbsp;<br>  
-
-::: {style="border: 1px solid #1c1c1c; border-radius: 6px; padding:1%;"}
-
-[$P$]{.green-text}-Network:
-
-  [`PNet: ` $(U, P) \longrightarrow \left(s_{P},\, t_{P},\, q_{P}\right)$]{style="font-size:0.9em;"}  
-
-:::
-
-:::
-
-::: {.column width="45%" style="text-align:right;"}
-
-![](./assets/leapfrog-layer-4D-SU3-vertical.light.svg){width="80%"}
-
-:::
-
-::::
-
-# Networks 4D $SU(3)$ {.centeredslide auto-animate="true"}
-
-:::: {.columns}
-
-::: {.column width="54%" style="font-size:0.9em;"}
-
-&nbsp;<br>  
-
-&nbsp;<br>  
-
-[$U$]{.purple-text}-Network:
-
-  [`UNet: ` $(U, P) \longrightarrow \left(s_{U},\, t_{U},\, q_{U}\right)$]{style="font-size:0.9em;"}
-
-&nbsp;<br>  
-
-::: {style="border: 1px solid #07B875; border-radius: 6px; padding:1%;"}
-
-[$P$]{.green-text}-Network:
-
-  [`PNet: ` $(U, P) \longrightarrow \left(s_{P},\, t_{P},\, q_{P}\right)$]{style="font-size:0.9em;"}  
-
-:::
-
-[$\uparrow$]{.dim-text}  
-[let's look at this]{.dim-text style="padding-top: 0.5em!important;"}
-
-:::
-
-::: {.column width="45%" style="text-align:right;"}
-
-![](./assets/leapfrog-layer-4D-SU3-vertical.light.svg){width="80%"}
-
-:::
-
-::::
-
-## $P$-`Network` (pt. 1) {style="font-size:0.95em;"}
-
-::: {style="text-align:center;"}
-
-![](./assets/SU3/PNetwork.light.svg)
-
-:::
+# Generated vs. Original {.centeredslide}
 
 :::: {.columns}
 
 ::: {.column width="50%"}
+- Compare probability distributions over the space of possible states
 
-- [`input`[^sigma]: $\hspace{7pt}\left(U, F\right) := (e^{i Q}, F)$]{style="border-bottom: 2px solid rgba(131, 131, 131, 0.493);"}
-  $$\begin{align*}
-  h_{0} &= \sigma\left( w_{Q} Q + w_{F} F + b \right) \\
-  h_{1} &= \sigma\left( w_{1} h_{0} + b_{1} \right) \\
-  &\vdots \\
-  h_{n} &= \sigma\left(w_{n-1} h_{n-2} + b_{n}\right) \\
-  \textcolor{#FF5252}{z} & := \sigma\left(w_{n} h_{n-1} + b_{n}\right) \longrightarrow \\
-  \end{align*}$$
-
+::: {.callout-warning title="Unexpected trend!"}
+- Wasserstein distance is lower around $T_c$ and has a sharp dip at T=2.0
+:::
 :::
 
-::: {.column width="50%"}
+::: {.column width="49%"}
+::: {#fig-wass}
+![](https://github.com/EmmaZ49/thesistalk2024/raw/main/assets/pre_wasserstein_distance_900_2.svg)
 
-- [`output`[^lambda]: $\hspace{7pt} (s_{P}, t_{P}, q_{P})$]{style="border-bottom: 2px solid rgba(131, 131, 131, 0.5);"}
-
-  - $s_{P} = \lambda_{s} \tanh(w_s \textcolor{#FF5252}{z} + b_s)$
-  - $t_{P} = w_{t} \textcolor{#FF5252}{z} + b_{t}$
-  - $q_{P} = \lambda_{q} \tanh(w_{q} \textcolor{#FF5252}{z} + b_{q})$
-
+Wasserstein distance across temperatures
+:::
 :::
 
 ::::
-
-[^sigma]: $\sigma(\cdot)$ denotes an activation function
-[^lambda]: $\lambda_{s}, \lambda_{q} \in \mathbb{R}$, trainable parameters
-
-## $P$-`Network` (pt. 2) {style="font-size:0.9em;"}
-
-::: {style="text-align:center;"}
-
-![](./assets/SU3/PNetwork.light.svg)
-
-:::
-
-- Use $(s_{P}, t_{P}, q_{P})$ to update $\Gamma^{\pm}: (U, P) \rightarrow
-\left(U, P_{\pm}\right)$[^inverse]:
-
-    - [forward]{style="color:#FF5252"} $(d = \textcolor{#FF5252}{+})$:
-    $$\Gamma^{\textcolor{#FF5252}{+}}(U, P) := P_{\textcolor{#FF5252}{+}} = P \cdot e^{\frac{\varepsilon}{2} s_{P}} - \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{P}} + t_{P} \right]$$
-
-    - [backward]{style="color:#1A8FFF;"} $(d = \textcolor{#1A8FFF}{-})$: 
-    $$\Gamma^{\textcolor{#1A8FFF}{-}}(U, P) := P_{\textcolor{#1A8FFF}{-}} = e^{-\frac{\varepsilon}{2} s_{P}} \left\{P + \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{P}} + t_{P} \right]\right\}$$
-
-
-[^lambda]: $\lambda_{s},\, \lambda_{q} \in \mathbb{R}$ are trainable parameters
-[^inverse]: Note that $\left(\Gamma^{+}\right)^{-1} = \Gamma^{-}$, i.e. $\Gamma^{+}\left[\Gamma^{-}(U, P)\right] = \Gamma^{-}\left[\Gamma^{+}(U, P)\right] = (U, P)$
-
-# Results: 2D $U(1)$ {#sec-results .centeredslide}
-
-:::: {.columns}
-
-::: {.column width=50% style="align:top;"}
-![](https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/autocorr_new.svg){width="90%"}
-:::
-
-::: {.column width="33%" style="text-align:left; padding-top: 5%;"}
-
-::: {.callout-important title="Improvement" style="text-align:left!important;"}
-We can measure the performance by comparing $\tau_{\mathrm{int}}$ for the
-[**trained model**]{style="color:#FF2052;"} vs.
-[**HMC**]{style="color:#9F9F9F;"}.  
-  
-**Note**: [lower]{style="color:#FF2052;"} is better
-:::
-
-:::
-
-::::
-
-![](https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/charge_histories.svg){.absolute top=400 left=0 width="100%" style="margin-bottom: 1em;margin-top: 1em;"}
-
-
-## Interpretation {#sec-interpretation .centeredslide}
-
-:::: {.columns style="margin-left:1pt;"}
-
-::: {.column width="36%"}
-
-[Deviation in $x_{P}$]{.dim-text style="text-align:center; font-size:0.8em"}
-
-:::
-
-::: {.column width="30%"}
-
-[Topological charge mixing]{.dim-text style="text-align:right; font-size:0.8em"}
-
-:::
-
-::: {.column width="32%"}
-
-[Artificial influx of energy]{.dim-text style="text-align:right!important; font-size:0.8em;"}
-
-:::
-
-::::
-
-::: {#fig-interpretation}
-
-![](https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/ridgeplots.svg){width="100%"}
-
-Illustration of how different observables evolve over a single L2HMC
-trajectory.
-:::
-
-
-## Interpretation {.centeredslide}
-
-::: {#fig-energy-ridgeplot layout-ncol=2 layout-valign="top"}
-
-![Average plaquette: $\langle x_{P}\rangle$ vs LF step](https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/plaqsf_ridgeplot.svg)
-
-![Average energy: $H - \sum\log|\mathcal{J}|$](https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/Hf_ridgeplot.svg)
-
-The trained model artifically increases the energy towards
-the middle of the trajectory, allowing the sampler to tunnel between isolated
-sectors.
-:::
-
-
-# 4D $SU(3)$ Results {#sec-su3results}
-
-
-- Distribution of $\log|\mathcal{J}|$ over all chains, at each _leapfrog step_,  $N_{\mathrm{LF}}$
-($= 0, 1, \ldots, 8$)
-during training:
-
-::: {layout="[ [30, 30, 30] ]" layout-valign="center" style="display: flex; flex-direction: row; margin-top: -0.0em; align-items: center;"}
-
-![`100` train iters](./assets/SU3/logdet_ridgeplot1.svg){#fig-ridgeplot1}
-
-![`500` train iters](./assets/SU3/logdet_ridgeplot2.svg){#fig-ridgeplot2}
-
-![`1000` train iters](./assets/SU3/logdet_ridgeplot3.svg){#fig-ridgeplot3}
-
-:::
-
-## 4D $SU(3)$ Results: $\delta U_{\mu\nu}$
-
-::: {#fig-pdiff}
-
-![](./assets/SU3/pdiff.svg)
-
-The difference in the average plaquette $\left|\delta U_{\mu\nu}\right|^{2}$
-between the trained model and HMC
-
-:::
-
-## 4D $SU(3)$ Results: $\delta U_{\mu\nu}$
-
-::: {#fig-pdiff-robust}
-
-![](./assets/SU3/pdiff-robust.svg)
-
-The difference in the average plaquette $\left|\delta U_{\mu\nu}\right|^{2}$
-between the trained model and HMC
-
-:::
 
 # Next Steps {#sec-next-steps}
-
-- Further code development
-  - {{< fa brands github >}} [`saforem2/l2hmc-qcd`](https://github.com/saforem2/l2hmc-qcd)
-
-- Continue to use / test different network architectures
-  - Gauge equivariant NNs for $U_{\mu}(x)$ update
-
-- Continue to test different loss functions for training
-
-- Scaling:
-  - Lattice volume
-  - Network size
-  - Batch size
-  - \# of GPUs
-
-## Thank you! {#sec-thank-you}
-
-&nbsp;<br>  
-
-::: {layout-ncol=4 style="text-align:left; font-size:0.8em;"}
-
-[[{{< fa solid home >}} `samforeman.me`](https://samforeman.me)]{style="font-size:0.8em;"}
-
-[[{{< fa brands github >}} `saforem2`](https://github.com/saforem2)]{style="font-size:0.8em;"}
-
-[[{{< fa brands twitter >}} `@saforem2`](https://www.twitter.com/saforem2)]{style="font-size:0.8em;"}
-
-[[{{< fa regular paper-plane >}} `foremans@anl.gov`](mailto:///foremans@anl.gov)]{style="font-size:0.8em;"}
-
-:::
-
-::: {.callout-note title="Acknowledgements"}
-
-This research used resources of the Argonne Leadership Computing Facility,  
-which is a DOE Office of Science User Facility supported under Contract DE-AC02-06CH11357.
-
-:::
+- What caused the unusual trend in Wasserstein distance?
+- Explore features of the hidden layer of RBM. How is it learning?
+- Can we generate better configurations with more hidden units?
 
 
-## {#sec-l2hmc-gh}
+# Acknowledgements {#sec-acknowledgements}
 
-::: {style="text-align:center;"}
+- Thank you to:
+  - Prof. Weiqing Gu
+  - Prof. Daniel Tamayo
+  - Prof. Jon Jacobsen
+  - Melissa Hernandez-Alvarez
+  - DruAnn Thomas
+  - Jocelyn Olds-McSpadden
+  - Math department faculty
+  - Math thesis students
 
-[![](https://raw.githubusercontent.com/saforem2/l2hmc-qcd/main/assets/logo-small.svg)](https://github.com/saforem2/l2hmc-qcd)
-
-<a href="https://hits.seeyoufarm.com"><img alt="hits" src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fsaforem2%2Fl2hmc-qcd&count_bg=%2300CCFF&title_bg=%23555555&icon=&icon_color=%23111111&title=👋&edge_flat=false"></a>
-<a href="https://github.com/saforem2/l2hmc-qcd/"><img alt="l2hmc-qcd" src="https://img.shields.io/badge/-l2hmc--qcd-252525?style=flat&logo=github&labelColor=gray"></a> <a href="https://www.codefactor.io/repository/github/saforem2/l2hmc-qcd"><img alt="codefactor" src="https://www.codefactor.io/repository/github/saforem2/l2hmc-qcd/badge"></a>  
-
-<a href="https://arxiv.org/abs/2112.01582"><img alt="arxiv" src="http://img.shields.io/badge/arXiv-2112.01582-B31B1B.svg"></a> <a href="https://arxiv.org/abs/2105.03418"><img alt="arxiv" src="http://img.shields.io/badge/arXiv-2105.03418-B31B1B.svg"></a>  
-
-<a href="https://hydra.cc"><img alt="hydra" src="https://img.shields.io/badge/Config-Hydra-89b8cd"></a> <a href="https://pytorch.org/get-started/locally/"><img alt="pyTorch" src="https://img.shields.io/badge/PyTorch-ee4c2c?logo=pytorch&logoColor=white"></a> <a href="https://www.tensorflow.org"><img alt="tensorflow" src="https://img.shields.io/badge/TensorFlow-%23FF6F00.svg?&logo=TensorFlow&logoColor=white"></a> 
-[<img src="https://raw.githubusercontent.com/wandb/assets/main/wandb-github-badge-28.svg" alt="Weights & Biases monitoring" height=20>](https://wandb.ai/l2hmc-qcd/l2hmc-qcd)
-
-:::
-
-
-## Acknowledgements {#sec-acknowledgements}
-
-:::: {.columns}
-
-
-::: {.column width="50%"}
-
-- **Links**:
-   - [{{< fa brands github >}} Link to github](https://github.com/saforem2/l2hmc-qcd)
-   - [{{< fa solid paper-plane >}} reach out!](mailto:foremans@anl.gov)
-
-- **References**:
-    - [Link to slides](https://saforem2.github.io/lattice23/)
-        - [{{< fa brands github >}} link to github with slides](https://github.com/saforem2/lattice23)
-   - {{< fa solid book >}} [@Foreman:2021ljl; @Foreman:2021rhs; @Foreman:2021ixr]
-   - {{< fa solid book >}} [@Boyda:2022nmh; @Shanahan:2022ifi]
-
-:::
-
-::: {.column width="50%"}
-
-- Huge thank you to:
-  - Yannick Meurice
-  - Norman Christ
-  - Akio Tomiya
-  - Nobuyuki Matsumoto
-  - Richard Brower
-  - Luchang Jin
-  - Chulwoo Jung
-  - Peter Boyle
-  - Taku Izubuchi
-  - Denis Boyda
-  - Dan Hackett
-  - ECP-CSD group
-  - [**ALCF Staff + Datascience Group**]{.red-text}
-
-:::
-
-::::
-
-
-## {#sec-references}
-
-:::: {.columns}
-
-::: {.column width="50%"}
-
-### Links
-
-- [{{< fa brands github >}} `saforem2/l2hmc-qcd`](https://github.com/saforem2/l2hmc-qcd)
-
-- [📊 slides](https://saforem2.github.io/lattice23) (Github: [{{< fa brands github >}} `saforem2/lattice23`](https://github.com/saforem2/lattice23))
-
-:::
-
-::: {.column width="50%"}
-
-### References
-
-- [Title Slide Background (worms) animation](https://saforem2.github.io/grid-worms-animation/)
-  - Github: [{{< fa brands github >}} `saforem2/grid-worms-animation`](https://github.com/saforem2/grid-worms-animation)
-
-- [Link to HMC demo](https://chi-feng.github.io/mcmc-demo/app.html)
-
-:::
-
-::::
 
 
 ## References {style="line-height:1.2em;"}
-
-(I don't know why this is broken 🤷🏻‍♂️ )
 
 ::: {#refs}
 :::

@@ -4,7 +4,7 @@ project:
   preview:
     port: 4204
 
-title: "MLMC: Machine Learning Monte Carlo"
+title: "Probing the Ising Model's Thermodynamics through Restricted Boltzmann Machines"
 date: today
 date-modified: last-modified
 author-title: ""
@@ -16,30 +16,10 @@ number-sections: false
 bibliography: references.bib
 appendix-cite-as: display
 favicon: "./assets/favicon.svg"
-twitter-card:
-  image: "https://github.com/saforem2/lattice23/blob/main/assets/thumbnail.png?raw=true"
-  site: "@saforem2"
-  creator: "@saforem2"
 author:
-  name: Sam Foreman
-  url: https://samforeman.me
-  orcid: 0000-0002-9981-0876
-  email: foremans@anl.gov
-  affiliation: Argonne National Laboratory
-  affiliation-url: https://alcf.anl.gov/about/people/sam-foreman
-citation:
-   author: Sam Foreman
-   type: speech
-   genre: "Presentation at the 2023 International Symposium on Lattice Field Theory"
-   container-title: https://indico.fnal.gov/event/57249/contributions/271305/
-   title: "MLMC: Machine Learning Monte Carlo for Lattice Gauge Theory"
-   url: https://saforem2.github.io/lattice23
-   abstract: | 
-     We present a trainable framework for efficiently generating gauge
-     configurations, and discuss ongoing work in this direction. In particular, we
-     consider the problem of sampling configurations from a 4D 𝑆𝑈(3) lattice gauge
-     theory, and consider a generalized leapfrog integrator in the molecular
-     dynamics update that can be trained to improve sampling efficiency.
+  name: Emma Zhang
+  email: xiazhang@g.hmc.edu
+  affiliation: Harvey Mudd College
   # -----------------------
   # type: article-journal
   # container-title: ACM Transactions on Embedded Computing Systems
@@ -54,8 +34,6 @@ citation:
   # doi: "10.23915/reprodocs.00010"
   # url: https://example.com/summarizing-output
   # -----------------------
-google-scholar: true
-google-analytics: G-XVM2Y822Y1
 
 #
 #
